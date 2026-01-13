@@ -14,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest;
+use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\RegisterRequest as MyRegisterRequest;
 
 
@@ -75,6 +76,13 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
             return $user;
+        });
+
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect()->route('item.list');
+            }
         });
 
     }

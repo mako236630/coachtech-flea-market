@@ -10,6 +10,12 @@
 <body>
     <h1>ログイン</h1>
 
+    @error('email')
+    @if ( $message === 'ログイン情報が登録されていません')
+    {{ $message }}
+    @endif
+    @enderror
+
     <form action="{{ route('login') }}" method="post" novalidate>
         @csrf
 
@@ -19,7 +25,9 @@
         </div>
         <div>
             @error('email')
+            @if ( $message !== 'ログイン情報が登録されていません')
             {{ $message }}
+            @endif
             @enderror
         </div>
         <div>
