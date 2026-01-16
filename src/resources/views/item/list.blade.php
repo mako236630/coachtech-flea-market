@@ -9,7 +9,7 @@
 
 <body>
     <header>
-        <form action="" method="get">
+        <form action="{{ route('item.list') }}" method="get">
             <input type="text" name="keyword" placeholder="なにをお探しですか" value="{{ request('keyword') }}">
         </form>
         <nav>
@@ -28,7 +28,7 @@
     <div style="display: flex; flex-wrap: wrap;">
         @foreach ($items as $item)
         <div style="margin: 10px; width: 200px;">
-            <a href="/items/{{ $item->id }}"> <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}" width="200">
+            <a href="/item/{{ $item->id }}"> <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}" width="200">
                 <p>{{ $item->name }}</p>
             </a>
 

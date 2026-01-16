@@ -12,11 +12,23 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Item::all();
 
-        return view("item.list", compact("items"));
+        $query = Item::query();
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $items = $query->get();
+
+        return view('item.list', compact('items'));
+
     }
 
     /**
@@ -46,9 +58,11 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($item_id)
     {
-        //
+        $item = Item::findOrFail($item_id);
+
+        return view("item.show", compact('item'));
     }
 
     /**

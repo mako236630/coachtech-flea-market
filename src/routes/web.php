@@ -14,3 +14,4 @@ use App\Http\Controllers\ItemController;
 */
 
 Route::get("/", [ItemController::class, "index"])->name("item.list");
+Route::get("/item/{item_id}", [ItemController::class, "show"])->name("item.show");
