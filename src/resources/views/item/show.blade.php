@@ -31,8 +31,38 @@
             <strong>商品の状態</strong>
             <p>{{$item->condition->name }}</p>
         </span>
-
     </div>
+    <div>
+        <h4>コメント ({{ $item->comments->count() }})</h4>
+    </div>
+
+    <div>
+        @foreach($item->comments as $comment)
+        <strong>{{ $comment->user->name }}</strong>
+        <p>{{ $comment->comment }}</p>
+    </div>
+    @endforeach
+
+        <form action="{{ route("comment.store", $item->id)}}" method="post">
+            @csrf
+
+            <div>
+                @if (session('message'))
+                {{ session('message') }}
+            </div>
+            @endif
+            
+            <div>
+                <strong>商品へのコメント</strong><br>
+            <textarea name="comment" rows="10"></textarea><br>
+
+            <div>
+            @error('comment')
+            {{ $message }}
+            @enderror
+        </div>
+            <button type="submit">コメントを送信する</button>
+        </div>
 </body>
 
 </html>
