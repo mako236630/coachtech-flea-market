@@ -33,4 +33,14 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function Favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function is_favorited_by_auth_user()
+    {
+        return $this->favorites()->where("user_id", auth()->id())->exists();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -14,9 +15,17 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Item::all();
+        $tab = $request->query("tab");
 
-        $query = Item::query();
+        if ($tab === "mylist" && Auth::check()) {
+            /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $query = $user->favorite_items();
+
+        } else {
+
+            $query = Item::query();
+        }
 
         if ($request->filled('keyword')) {
             $keyword = $request->keyword;
@@ -27,7 +36,7 @@ class ItemController extends Controller
 
         $items = $query->get();
 
-        return view('item.list', compact('items'));
+        return view('item.list', compact('items', "tab"));
 
     }
 

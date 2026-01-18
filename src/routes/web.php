@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,5 +17,7 @@ use App\Http\Controllers\CommentController;
 */
 
 Route::get("/", [ItemController::class, "index"])->name("item.list");
+
 Route::get("/item/{item_id}", [ItemController::class, "show"])->name("item.show");
-Route::post("/item/{item_id}/comment", [CommentController::class, "store"])->name("comment.store")->middleware('auth');
+Route::post("/item/{item_id}/comment", [CommentController::class, "store"])->name("comment.store")->middleware("auth");
+Route::post("/item/{item_id}/favorite", [FavoriteController::class, "store"])->name("favorite.store")->middleware("auth");
