@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品一覧画面</title>
-</head>
+@extends('layouts.app')
+@section('content')
 
 <body>
-    <header>
-        <form action="{{ route('item.list') }}" method="get">
-            <input type="text" name="keyword" placeholder="なにをお探しですか" value="{{ request('keyword') }}">
-        </form>
-        <nav>
-            <a href="{{ route('login') }}">ログイン</a>
-            <a href="">マイページ</a>
-            <a href="">出品</a>
-        </nav>
-    </header>
 
     <div>
         <div style="margin: 20px;">
@@ -47,5 +32,4 @@
         @endif
     </div>
 </body>
-
-</html>
+@endsection

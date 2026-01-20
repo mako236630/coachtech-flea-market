@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,6 @@ Route::get("/", [ItemController::class, "index"])->name("item.list");
 Route::get("/item/{item_id}", [ItemController::class, "show"])->name("item.show");
 Route::post("/item/{item_id}/comment", [CommentController::class, "store"])->name("comment.store")->middleware("auth");
 Route::post("/item/{item_id}/favorite", [FavoriteController::class, "store"])->name("favorite.store")->middleware("auth");
+Route::get("/purchase/{item_id}", [PurchaseController::class, "index"])->name("item.purchase");
+Route::post("/purchase/{item_id}", [PurchaseController::class, "store"])->name("purchase.store");
+Route::get("/purchase/address/{item_id}", [AddressController::class, "index"])->name("purchase.address");

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン画面</title>
-</head>
-
-<body>
+@extends('layouts.auth')
+@section('content')
     <h1>ログイン</h1>
 
     @error('email')
@@ -44,6 +36,5 @@
         </div>
     </form>
     <a href="{{ route('register') }}">会員登録はこちら</a>
-</body>
 
-</html>
+@endsection

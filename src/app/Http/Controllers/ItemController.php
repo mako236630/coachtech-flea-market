@@ -17,10 +17,15 @@ class ItemController extends Controller
     {
         $tab = $request->query("tab");
 
-        if ($tab === "mylist" && Auth::check()) {
+        if ($tab === "mylist") {
+            if (!Auth::check()) {
+
+                return redirect()->route("login");
+            }
+
             /** @var \App\Models\User $user */
-        $user = Auth::user();
-        $query = $user->favorite_items();
+            $user = Auth::user();
+            $query = $user->favorite_items();
 
         } else {
 
@@ -37,7 +42,6 @@ class ItemController extends Controller
         $items = $query->get();
 
         return view('item.list', compact('items', "tab"));
-
     }
 
     /**
