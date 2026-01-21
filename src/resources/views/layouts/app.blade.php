@@ -7,35 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <style>
-        header {
-            display: flex;
-            padding: 20px;
-            margin: 0px;
-            background-color: black;
-            align-items: center;
-
-        }
-    </style>
 </head>
 
 <body>
 
-    <header>
-        <div>
-            <a href="/"><img src="{{ asset('images/COACHTECH.png') }}" alt="logo" style="height: 30px;"></a>
-        </div>
+    <header class="header">
+        <div class="header__inner">
 
-        <div>
-            <form action="{{ route('item.list') }}" method="get">
+            <div class="header__logo">
+                <a href="/"><img src="{{ asset('images/COACHTECH.png') }}" alt="logo"></a>
+            </div>
 
-                <input type="text" name="keyword" placeholder="なにをお探しですか" value="{{ request('keyword') }}">
-            </form>
-        </div>
+            <div class="header__seach">
+                <form action="{{ route('item.list') }}" method="get">
+                    <input type="text" name="keyword" placeholder="なにをお探しですか" value="{{ request('keyword') }}">
+                </form>
+            </div>
 
-        <div style="display: flex; flex-wrap: wrap;">
-            <nav>
+            <nav class="header__nav">
                 @auth
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
@@ -45,15 +34,11 @@
                         <button style="submit">マイページ</button>
                     </a>
                     <a href="">
-                        <button style="submit">出品</button>
+                        <button style="submit" class="sell__button">出品</button>
                     </a>
-                </nav>
-            </div>
-        @endauth
+                @endauth
 
-        @guest
-            <div style="display: flex; flex-wrap: wrap;">
-                <nav>
+                @guest
                     <a href="{{ route('login') }}">
                         <button style="submit">ログイン</button>
                     </a>
@@ -61,11 +46,11 @@
                         <button style="submit">マイページ</button>
                     </a>
                     <a href="">
-                        <button style="submit">出品</button>
+                        <button style="submit" class="sell__button">出品</button>
                     </a>
                 </nav>
-            </div>
-        @endguest
+            @endguest
+        </div>
     </header>
 
     <main>

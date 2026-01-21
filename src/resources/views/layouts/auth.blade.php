@@ -7,26 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
-
-    <style>
-        header {
-            display: flex;
-            padding: 20px;
-            margin: 0px;
-            background-color: black;
-            align-items: center;
-
-        }
-    </style>
 </head>
 
 <body>
 
-    <header>
-        <div>
-            <a href="/"><img src="{{ asset('images/COACHTECH.png') }}" alt="logo" style="height: 30px;"></a>
+       <header class="header">
+        <div class="header__inner">
+
+            <div class="header__logo">
+                <a href="/"><img src="{{ asset('images/COACHTECH.png') }}" alt="logo"></a>
+            </div>
         </div>
-    </header>
+       </header>
 
     <main>
         @yield('content')

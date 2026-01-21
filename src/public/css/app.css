@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: black;
+    padding: 20px 20px;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo img {
+    width: 400px;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.header__seach {
+    display: flex;
+    max-width: 700px;
+    margin: 0 50px;
+    margin-right: 80px;
+    justify-content: center;
+    flex: 1;
+}
+
+.header__seach form {
+    width: 80%;
+}
+
+.header__seach input {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    border-radius: 3px;
+    border: none;
+    font-size: 16px;
+    color: black;
+}
+
+.header__seach input::placeholder {
+    color: black;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.header__nav button {
+    min-width: 120px;
+    color: white;
+    background-color: black;
+    font-size: 25px;
+    border-radius: 5px;
+    border: none;
+}
+
+.header__nav button.sell__button {
+    padding: 10px;
+    width: 100px !important;
+    min-width: auto !important;
+    color: black;
+    background-color: white;
+    font-size: 25px;
+    border-radius: 5px;
+    border: none;
+}
+
+
