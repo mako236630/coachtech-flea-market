@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div style="margin: 10px; width: 200px;">
         <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"
             width="350">
@@ -26,9 +25,15 @@
         </div>
 
         <div>
+            @if ($item->is_sold)
+                <h2>[ sold ]</h2>
+        </div>
+    @else
+        <div>
             <form action="{{ route('item.purchase', $item->id) }}" method="get">
                 <button style="submit">購入手続きへ</button>
             </form>
+            @endif
         </div>
 
         <h2>商品説明</h2>
@@ -45,36 +50,36 @@
             <strong>商品の状態</strong>
             <p>{{ $item->condition->name }}</p>
         </span>
-        </div>
+    </div>
+    <div>
+        <h4>コメント ({{ $item->comments->count() }})</h4>
+    </div>
+
+    @foreach ($item->comments as $comment)
         <div>
-            <h4>コメント ({{ $item->comments->count() }})</h4>
+            <strong>{{ $comment->user->name }}</strong>
+            <p>{{ $comment->comment }}</p>
         </div>
+    @endforeach
 
-        @foreach ($item->comments as $comment)
-            <div>
-                <strong>{{ $comment->user->name }}</strong>
-                <p>{{ $comment->comment }}</p>
+    <form action="{{ route('comment.store', $item->id) }}" method="post">
+        @csrf
+
+        @if (session('message'))
+            <div style="color: red">
+                {{ session('message') }}
             </div>
-        @endforeach
+        @endif
 
-        <form action="{{ route('comment.store', $item->id) }}" method="post">
-            @csrf
+        <div>
+            <strong>商品へのコメント</strong><br>
+            <textarea name="comment" rows="10"></textarea><br>
 
-            <div>
-                @if (session('message'))
-                    {{ session('message') }}
+            <div style="color: red">
+                @error('comment')
+                    {{ $message }}
+                @enderror
             </div>
-            @endif
-
-            <div>
-                <strong>商品へのコメント</strong><br>
-                <textarea name="comment" rows="10"></textarea><br>
-
-                <div>
-                    @error('comment')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <button type="submit">コメントを送信する</button>
-            </div>
-        @endsection
+            <button type="submit">コメントを送信する</button>
+        </div>
+    @endsection

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\RegisterRequest as MyRegisterRequest;
@@ -76,6 +77,13 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
             return $user;
+        });
+
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+            public function toResponse($request)
+            {
+                return redirect('/login');
+            }
         });
 
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {

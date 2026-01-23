@@ -11,7 +11,7 @@
             <label>ユーザ名</label>
             <input type="text" name="name" value="{{ old('name') }}">
         </div>
-        <div>
+        <div style="color: red">
             @error('name')
             {{ $message }}
             @enderror
@@ -21,7 +21,7 @@
             <label>メールアドレス</label>
             <input type="email" name="email" value="{{ old('email') }}">
         </div>
-        <div>
+        <div style="color: red">
             @error('email')
             {{ $message }}
             @enderror
@@ -30,7 +30,7 @@
             <label>パスワード</label>
             <input type="password" name="password" value="{{ old('password') }}">
         </div>
-        <div>
+        <div style="color: red">
             @error('password')
             {{ $message }}
             @enderror
@@ -39,7 +39,7 @@
             <label>確認用パスワード</label>
             <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
         </div>
-        <div>
+        <div style="color: red">
             @error('password_confirmation')
             {{ $message }}
             @enderror

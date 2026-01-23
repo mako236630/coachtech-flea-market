@@ -17,6 +17,7 @@ class Item extends Model
         "image",
         "condition_id",
         "user_id",
+        "is_sold",
     ];
 
     public function categories()
@@ -34,7 +35,7 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function Favorites()
+    public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
