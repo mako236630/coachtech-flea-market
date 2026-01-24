@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <strong>郵便番号</strong><br>
+                <label>郵便番号</label><br>
                 <input type="text" name="postcode" value="{{ old('postcode') }}"><br>
 
                 <div style="color: red">
@@ -18,7 +18,7 @@
                     @enderror
                 </div>
 
-                <strong>住所</strong><br>
+                <label>住所</label><br>
                 <input type="text" name="address" value="{{ old('address') }}"><br>
 
                 <div style="color: red">
@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 
-                <strong>建物名</strong><br>
+                <label>建物名</label><br>
                 <input type="text" name="building" value="{{ old('building') }}"><br>
             </div>
 

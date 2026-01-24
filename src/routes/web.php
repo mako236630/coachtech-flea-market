@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::get("/purchase/address/{item_id}", [AddressController::class, "index"])->
 Route::post("/purchase/address/{item_id}", [AddressController::class, "update"])->name("address.update");
 Route::post("/puechase/checkout/{item_id}", [PurchaseController::class, "checkout"])->name("purchase.checkout");
 Route::get("/purchase/success/{item_id}", [PurchaseController::class, "success"])->name("purchase.success");
+Route::get("/mypage/profile", [ProfileController::class, "index"])->name("profile.index");

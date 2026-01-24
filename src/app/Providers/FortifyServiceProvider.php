@@ -35,7 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
             \Laravel\Fortify\Http\Requests\LoginRequest::class,
             \App\Http\Requests\LoginRequest::class
         );
-        
+
         $this->app->alias(
             \App\Http\Requests\LoginRequest::class,
             \Laravel\Fortify\Http\Requests\LoginRequest::class
@@ -65,10 +65,10 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function ($request) {
-        
+
             app(\App\Http\Requests\LoginRequest::class)->validateResolved();
 
-            
+
             $user = \App\Models\User::where('email', $request->email)->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
@@ -86,12 +86,11 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
-        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+        $this->app->instance(\Laravel\Fortify\Contracts\RegisterResponse::class, new class implements \Laravel\Fortify\Contracts\RegisterResponse {
             public function toResponse($request)
             {
-                return redirect()->route('item.list');
+                return redirect()->route('profile.index');
             }
         });
-
     }
 }
