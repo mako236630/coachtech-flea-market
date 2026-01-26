@@ -24,7 +24,7 @@
             {{ $item->comments->count() }}
         </div>
 
-        <div>
+        <div style="color: red">
             @if ($item->is_sold)
                 <h2>[ sold ]</h2>
         </div>
@@ -56,6 +56,11 @@
     </div>
 
     @foreach ($item->comments as $comment)
+    <div>
+            {{-- 画像をプレビュー表示する為、srcでimageのパスを取得しています　--}}
+            <img id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}"
+                width="40">
+        </div>
         <div>
             <strong>{{ $comment->user->name }}</strong>
             <p>{{ $comment->comment }}</p>
@@ -82,4 +87,18 @@
             </div>
             <button type="submit">コメントを送信する</button>
         </div>
+
+         <script>
+            if (input.files && input.files[0]) {
+                var fileData = new FileReader();
+
+                fileData.onload = function() {
+                    // 選択した画像をプレビュー表示してます
+                    document.getElementById('preview').src = fileData.result;
+                };
+
+                fileData.readAsDataURL(input.files[0]);
+            }
+    </script>
+
     @endsection

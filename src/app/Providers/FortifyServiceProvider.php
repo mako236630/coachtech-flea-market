@@ -89,7 +89,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(\Laravel\Fortify\Contracts\RegisterResponse::class, new class implements \Laravel\Fortify\Contracts\RegisterResponse {
             public function toResponse($request)
             {
-                return redirect()->route('profile.index');
+                return redirect()->route('profile.edit');
             }
         });
     }

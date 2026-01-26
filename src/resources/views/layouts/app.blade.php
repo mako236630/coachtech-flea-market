@@ -30,7 +30,7 @@
                         @csrf
                         <button style="submit">ログアウト</button>
                     </form>
-                    <a href="">
+                    <a href="{{ route("mypage.index") }}">
                         <button style="submit">マイページ</button>
                     </a>
                     <a href="">

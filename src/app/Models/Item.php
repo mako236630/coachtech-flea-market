@@ -18,6 +18,7 @@ class Item extends Model
         "condition_id",
         "user_id",
         "is_sold",
+        "buyer_id",
     ];
 
     public function categories()

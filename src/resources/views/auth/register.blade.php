@@ -8,7 +8,7 @@
         @csrf
 
         <div>
-            <label>ユーザ名</label>
+            <label>ユーザー名</label>
             <input type="text" name="name" value="{{ old('name') }}">
         </div>
         <div style="color: red">

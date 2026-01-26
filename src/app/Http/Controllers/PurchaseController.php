@@ -61,8 +61,11 @@ class PurchaseController extends Controller
     public function success($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $item->update(['is_sold' => true]);
+        $item->update([
+            'is_sold' => true,
+            'buyer_id' => Auth::id(),
+            ]);
 
-        return redirect()->route('item.list', ['item_id' => $item_id]);
+        return redirect()->route('item.show', ['item_id' => $item_id]);
     }
 }
