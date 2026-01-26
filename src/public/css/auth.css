@@ -26,3 +26,61 @@ body {
     margin-left: 10px;
     margin-right: 20px;
 }
+
+.register,
+.login {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title {
+    font-size: 15px;
+    padding: 50px;
+}
+
+.button,
+.input {
+    font-size: 20px;
+    border-radius: 3px;
+    width: 100%;
+    padding: 5px;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.input {
+    border: 1px solid #808080;
+}
+
+.error {
+    text-align: left;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
+
+.button__container {
+    padding: 50px 0px 10px 0px;
+}
+
+.button {
+    background-color: #ff6666;
+    color: #ffffff;
+    border: none;
+}
+
+.rink {
+    font-size: 10;
+    color: #007DC5;
+    text-decoration: none;
+}
+

@@ -81,4 +81,13 @@ body {
     border: none;
 }
 
+.button {
+    background-color: #ff6666;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    border-radius: 3px;
+    padding: 5px 150px;
+}
+
 

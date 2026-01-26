@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div style="margin: 10px; width: 200px;">
+    <div>
         <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"
             width="350">
         <h1>{{ $item->name }}</h1>
@@ -23,17 +23,18 @@
             <img src="{{ asset('images/comment.png') }}" width="30">
             {{ $item->comments->count() }}
         </div>
-
-        <div style="color: red">
-            @if ($item->is_sold)
-                <h2>[ sold ]</h2>
-        </div>
-    @else
         <div>
-            <form action="{{ route('item.purchase', $item->id) }}" method="get">
-                <button style="submit">購入手続きへ</button>
-            </form>
-            @endif
+            <div style="color: red">
+                @if ($item->is_sold)
+                    <h2>[ sold ]</h2>
+            </div>
+        @else
+            <div>
+                <form action="{{ route('item.purchase', $item->id) }}" method="get">
+                    <button class="button" type="submit">購入手続きへ</button>
+                </form>
+                @endif
+            </div>
         </div>
 
         <h2>商品説明</h2>
@@ -56,7 +57,7 @@
     </div>
 
     @foreach ($item->comments as $comment)
-    <div>
+        <div>
             {{-- 画像をプレビュー表示する為、srcでimageのパスを取得しています　--}}
             <img id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}"
                 width="40">
@@ -85,10 +86,10 @@
                     {{ $message }}
                 @enderror
             </div>
-            <button type="submit">コメントを送信する</button>
+            <button class="button" type="submit">コメントを送信する</button>
         </div>
 
-         <script>
+        <script>
             if (input.files && input.files[0]) {
                 var fileData = new FileReader();
 
@@ -99,6 +100,5 @@
 
                 fileData.readAsDataURL(input.files[0]);
             }
-    </script>
-
+        </script>
     @endsection

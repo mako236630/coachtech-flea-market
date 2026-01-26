@@ -58,7 +58,7 @@
             </div>
 
             <div>
-                <button type="submit">購入する</button>
+                <button class="button" type="submit">購入する</button>
             </div>
 
         </aside>

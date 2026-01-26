@@ -1,42 +1,48 @@
 @extends('layouts.auth')
 @section('content')
-    <h1>ログイン</h1>
 
-    <div style="color: red">
-    @error('email')
-    @if ( $message === 'ログイン情報が登録されていません')
-    {{ $message }}
-    @endif
-    @enderror
-    </div>
+    <div class="login">
 
-    <form action="{{ route('login') }}" method="post" novalidate>
-        @csrf
-
-        <div>
-            <label>メールアドレス</label>
-            <input type="email" name="email" value="{{ old('email') }}">
+        <div class="title">
+            <h1>ログイン</h1>
         </div>
         <div style="color: red">
             @error('email')
-            @if ( $message !== 'ログイン情報が登録されていません')
-            {{ $message }}
-            @endif
+                @if ($message === 'ログイン情報が登録されていません')
+                    {{ $message }}
+                @endif
             @enderror
         </div>
-        <div>
-            <label>パスワード</label>
-            <input type="password" name="password" value="{{ old('password') }}">
-        </div>
-        <div style="color: red">
-            @error('password')
-            {{ $message }}
-            @enderror
-        </div>
-        <div>
-            <button type="submit">ログインする</button>
-        </div>
-    </form>
-    <a href="{{ route('register') }}">会員登録はこちら</a>
+
+        <form action="{{ route('login') }}" method="post" novalidate>
+            @csrf
+
+            <div>
+                <label class="label">メールアドレス</label>
+                <input class="input" type="email" name="email" value="{{ old('email') }}">
+            </div>
+            <div class="error" style="color: red">
+                @error('email')
+                    @if ($message !== 'ログイン情報が登録されていません')
+                        {{ $message }}
+                    @endif
+                @enderror
+            </div>
+            <div>
+                <label class="label">パスワード</label>
+                <input class="input" type="password" name="password" value="{{ old('password') }}">
+            </div>
+            <div class="error" style="color: red">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </div>
+            <div>
+                <button class="button" type="submit">ログインする</button>
+            </div>
+        </form>
+        <a class="rink" href="{{ route('register') }}">会員登録はこちら</a>
+
+    </div>
 
 @endsection

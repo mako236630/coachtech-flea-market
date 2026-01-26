@@ -32,7 +32,7 @@
             </div>
 
             <div>
-                <button type="submit" name="submit">更新する</button>
+                <button class="button" type="submit" name="submit">更新する</button>
             </div>
         </form>
     @endsection
