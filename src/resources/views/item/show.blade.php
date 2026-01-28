@@ -13,9 +13,7 @@
 
         <div class="item__description">
 
-            <div class="item__name">
-                <h1>{{ $item->name }}</h1>
-            </div>
+            <h1>{{ $item->name }}</h1>
 
             <div class="item__brand">
                 <p>ブランド名 {{ $item->brand_name }}</p>
@@ -39,99 +37,94 @@
                             @endif
                         </button>
                         <p class="favorite__count">{{ $item->favorites->count() }}</p>
+                    </div>
                 </form>
+
+                <div class="item__comennt">
+                    <img src="{{ asset('images/comment.png') }}" width="30">
+                    <p class="comment__count">{{ $item->comments->count() }}</p>
+                </div>
             </div>
 
-            <div class="item__comennt">
-                <img src="{{ asset('images/comment.png') }}" width="30">
-                <p class="comment__count">{{ $item->comments->count() }}</p>
-            </div>
-        </div>
 
-        <div>
-            <div style="color: red">
-                @if ($item->is_sold)
-                    <h2>[ sold ]</h2>
-            </div>
-        @else
             <div class="item__purchase-btn">
-                <form action="{{ route('item.purchase', $item->id) }}" method="get">
-                    <button class="button" type="submit">購入手続きへ</button>
-                </form>
+                @if ($item->is_sold)
+                    <p class="item__sold">sold</p>
+                @else
+                    <form action="{{ route('item.purchase', $item->id) }}" method="get">
+                        <button class="button" type="submit">購入手続きへ</button>
+                    </form>
                 @endif
             </div>
-        </div>
 
-        <div class="item__show-description">
-            <h2>商品説明</h2>
-        </div>
-
-        <p>{{ $item->description }}</p>
-
-        <div class="item__category">
-            <h2>商品の情報</h2>
-        </div>
-
-        <div class="item__show-category">
-            <strong>カテゴリ</strong>
-            <div class="category__list">
-                @foreach ($item->categories as $category)
-                    <p class="category__name">{{ $category->name }}</p>
-                @endforeach
+            <div class="item__show-description">
+                <h2>商品説明</h2>
             </div>
-        </div>
 
-        <div class="item__condition">
-            <strong>商品の状態</strong>
-            <p>{{ $item->condition->name }}</p>
-        </div>
+            <p>{{ $item->description }}</p>
 
-        <div class="item__comments">
-            <h3>コメント ({{ $item->comments->count() }})</h3>
-        </div>
+            <div class="item__category">
+                <h2>商品の情報</h2>
+            </div>
 
-        @foreach ($item->comments as $comment)
-            <div class="comment__user">
-                <div class="comment__user-image">
-                    {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
-                    <img
-                        id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}">
+            <div class="item__show-category">
+                <strong>カテゴリ</strong>
+                <div class="category__list">
+                    @foreach ($item->categories as $category)
+                        <p class="category__name">{{ $category->name }}</p>
+                    @endforeach
                 </div>
-                <strong>{{ $comment->user->name }}</strong>
             </div>
 
-            <div class="item__user-comment">
-                <p class="user__comment">{{ $comment->comment }}</p>
+            <div class="item__condition">
+                <strong>商品の状態</strong>
+                <p>{{ $item->condition->name }}</p>
             </div>
-            
-        @endforeach
-    </div>
 
-    <form action="{{ route('comment.store', $item->id) }}" method="post">
-        @csrf
-
-        @if (session('message'))
-            <div class="comment__message">
-                {{ session('message') }}
+            <div class="item__comments">
+                <h3>コメント ({{ $item->comments->count() }})</h3>
             </div>
-        @endif
 
-        <div class="comment">
-            <strong>商品へのコメント</strong>
+            @foreach ($item->comments as $comment)
+                <div class="comment__user">
+                    <div class="comment__user-image">
+                        {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
+                        <img
+                            id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}">
+                    </div>
+                    <strong>{{ $comment->user->name }}</strong>
+                </div>
+
+                <div class="item__user-comment">
+                    <p class="user__comment">{{ $comment->comment }}</p>
+                </div>
+            @endforeach
+
+
+            <form action="{{ route('comment.store', $item->id) }}" method="post">
+                @csrf
+
+                @if (session('message'))
+                    <div class="comment__message">
+                        {{ session('message') }}
+                    </div>
+                @endif
+
+                <div class="comment">
+                    <strong>商品へのコメント</strong>
+                </div>
+
+                <textarea class="textarea" name="comment" rows="10"></textarea><br>
+
+                <div class="error" style="color: red">
+                    @error('comment')
+                        {{ $message }}
+                    @enderror
+                </div>
+
+                <button class="button" type="submit">コメントを送信する</button>
+            </form>
         </div>
-
-        <textarea class="textarea" name="comment" rows="10"></textarea><br>
-
-        <div class="error" style="color: red">
-            @error('comment')
-                {{ $message }}
-            @enderror
-        </div>
-
-        <button class="button" type="submit">コメントを送信する</button>
-        </div>
-    </form>
-    </div>
     </div>
 
     <script>

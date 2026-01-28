@@ -26,10 +26,6 @@
     flex: 1;
 }
 
-.item__name {
-    font-size: 20px;
-}
-
 .item__brand {
     margin-bottom: 10px;
 }
@@ -40,6 +36,13 @@
 
 .item__price {
     font-size: 25px;
+}
+
+.item__sold {
+    font-weight: bold;
+    font-size: 40px;
+    color: red;
+    padding-left: 20px;
 }
 
 .item__favorite-comment {

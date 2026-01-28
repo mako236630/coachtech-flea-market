@@ -24,7 +24,7 @@
 
                     <P>
                         @if ($item->is_sold)
-                            {{ $item->name }} <strong style="color: red;">[sold]</strong>
+                            {{ $item->name }} <strong class="item__sold">sold</strong>
                         @else
                             {{ $item->name }}
                         @endif

@@ -1,0 +1,117 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.item__purchase-content {
+    width: 60%;
+}
+
+.item__purchase {
+    display: flex;
+    padding-top: 10px;
+    gap: 40px;
+}
+
+.item__purchase-image {
+    width: 200px;
+    padding-bottom: 30px;
+}
+
+.item__purchase-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.item__price {
+    font-size: 25px;
+}
+
+.item__payment-method {
+    display: block;
+    padding: 20px 0 10px 20px;
+}
+
+.payment__method {
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.payment__method-select {
+    padding-left: 60px;
+}
+
+.error {
+    padding-left: 80px;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    color: red;
+}
+
+.item__purchase-address {
+    width: 100%;
+    padding: 20px 0 5px 20px;
+}
+
+.purchase__address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address__setting {
+    padding-right: 20px;
+    color: #007DC5;
+    text-decoration: none;
+}
+
+
+
+.address__postcode {
+    width: 100%;
+    display: block;
+    padding-bottom: 5px;
+}
+
+.user__address {
+    padding: 0 0 30px 60px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid black;
+    width: 100%;
+    margin: 0;
+}
+
+.aside {
+    width: 400px;
+    padding-top: 40px;
+}
+
+.subtotal {
+    padding-bottom: 30px;
+}
+
+.subtotal__table {
+    width: 100%;
+    border: 1px solid black;
+    border-bottom: none;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 30px;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+}
+
+.button {
+    width: 100%;
+}
