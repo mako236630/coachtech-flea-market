@@ -1,35 +1,60 @@
 @extends('layouts.app')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/item/show.css') }}">
+@endsection
+
 @section('content')
-    <div>
-        <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"
-            width="350">
-        <h1>{{ $item->name }}</h1>
-        <p>ブランド名 {{ $item->brand_name }}</p>
-        <p>￥<BIG>{{ number_format($item->price) }}</BIG>（税込み）</p>
+    <div class="item__show">
 
-        <div style="display: flex; flex-wrap: wrap;">
-            <form action="{{ route('favorite.store', $item->id) }}" method="post">
-                @csrf
-                <button type="submit">
-                    @if ($item->is_favorited_by_auth_user())
-                        <img src="{{ asset('images/heart-pink.png') }}" width="30">
-                    @else
-                        <img src="{{ asset('images/heart.png') }}" width="30">
-                    @endif
-                </button>
-                {{ $item->favorites->count() }}
-            </form>
-
-            <img src="{{ asset('images/comment.png') }}" width="30">
-            {{ $item->comments->count() }}
+        <div class="item__image">
+            <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}">
         </div>
+
+        <div class="item__description">
+
+            <div class="item__name">
+                <h1>{{ $item->name }}</h1>
+            </div>
+
+            <div class="item__brand">
+                <p>ブランド名 {{ $item->brand_name }}</p>
+            </div>
+
+            <div class="item__show-price">
+                <p>￥<big class="item__price">{{ number_format($item->price) }}</big>（税込み）</p>
+            </div>
+
+            <div class="item__favorite-comment">
+
+                <form action="{{ route('favorite.store', $item->id) }}" method="post">
+                    @csrf
+
+                    <div class="item__favorite">
+                        <button class="favorite__btn" type="submit">
+                            @if ($item->is_favorited_by_auth_user())
+                                <img src="{{ asset('images/heart-pink.png') }}" width="30">
+                            @else
+                                <img src="{{ asset('images/heart.png') }}" width="30">
+                            @endif
+                        </button>
+                        <p class="favorite__count">{{ $item->favorites->count() }}</p>
+                </form>
+            </div>
+
+            <div class="item__comennt">
+                <img src="{{ asset('images/comment.png') }}" width="30">
+                <p class="comment__count">{{ $item->comments->count() }}</p>
+            </div>
+        </div>
+
         <div>
             <div style="color: red">
                 @if ($item->is_sold)
                     <h2>[ sold ]</h2>
             </div>
         @else
-            <div>
+            <div class="item__purchase-btn">
                 <form action="{{ route('item.purchase', $item->id) }}" method="get">
                     <button class="button" type="submit">購入手続きへ</button>
                 </form>
@@ -37,68 +62,88 @@
             </div>
         </div>
 
-        <h2>商品説明</h2>
-        <p>{{ $item->description }}</p>
-        <h2>商品の情報</h2>
-        <span>
-            <strong>カテゴリ</strong>
-            @foreach ($item->categories as $category)
-                <p>{{ $category->name }}</p>
-            @endforeach
-        </span>
+        <div class="item__show-description">
+            <h2>商品説明</h2>
+        </div>
 
-        <span>
+        <p>{{ $item->description }}</p>
+
+        <div class="item__category">
+            <h2>商品の情報</h2>
+        </div>
+
+        <div class="item__show-category">
+            <strong>カテゴリ</strong>
+            <div class="category__list">
+                @foreach ($item->categories as $category)
+                    <p class="category__name">{{ $category->name }}</p>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="item__condition">
             <strong>商品の状態</strong>
             <p>{{ $item->condition->name }}</p>
-        </span>
-    </div>
-    <div>
-        <h4>コメント ({{ $item->comments->count() }})</h4>
-    </div>
+        </div>
 
-    @foreach ($item->comments as $comment)
-        <div>
-            {{-- 画像をプレビュー表示する為、srcでimageのパスを取得しています　--}}
-            <img id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}"
-                width="40">
+        <div class="item__comments">
+            <h3>コメント ({{ $item->comments->count() }})</h3>
         </div>
-        <div>
-            <strong>{{ $comment->user->name }}</strong>
-            <p>{{ $comment->comment }}</p>
-        </div>
-    @endforeach
+
+        @foreach ($item->comments as $comment)
+            <div class="comment__user">
+                <div class="comment__user-image">
+                    {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
+                    <img
+                        id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}">
+                </div>
+                <strong>{{ $comment->user->name }}</strong>
+            </div>
+
+            <div class="item__user-comment">
+                <p class="user__comment">{{ $comment->comment }}</p>
+            </div>
+            
+        @endforeach
+    </div>
 
     <form action="{{ route('comment.store', $item->id) }}" method="post">
         @csrf
 
         @if (session('message'))
-            <div style="color: red">
+            <div class="comment__message">
                 {{ session('message') }}
             </div>
         @endif
 
-        <div>
-            <strong>商品へのコメント</strong><br>
-            <textarea name="comment" rows="10"></textarea><br>
-
-            <div style="color: red">
-                @error('comment')
-                    {{ $message }}
-                @enderror
-            </div>
-            <button class="button" type="submit">コメントを送信する</button>
+        <div class="comment">
+            <strong>商品へのコメント</strong>
         </div>
 
-        <script>
-            if (input.files && input.files[0]) {
-                var fileData = new FileReader();
+        <textarea class="textarea" name="comment" rows="10"></textarea><br>
 
-                fileData.onload = function() {
-                    // 選択した画像をプレビュー表示してます
-                    document.getElementById('preview').src = fileData.result;
-                };
+        <div class="error" style="color: red">
+            @error('comment')
+                {{ $message }}
+            @enderror
+        </div>
 
-                fileData.readAsDataURL(input.files[0]);
-            }
-        </script>
-    @endsection
+        <button class="button" type="submit">コメントを送信する</button>
+        </div>
+    </form>
+    </div>
+    </div>
+
+    <script>
+        if (input.files && input.files[0]) {
+            var fileData = new FileReader();
+
+            fileData.onload = function() {
+                // 選択した画像をプレビュー表示してます
+                document.getElementById('preview').src = fileData.result;
+            };
+
+            fileData.readAsDataURL(input.files[0]);
+        }
+    </script>
+@endsection

@@ -1,40 +1,37 @@
 @extends('layouts.app')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/item/list.css') }}">
+@endsection
+
 @section('content')
 
-    <body>
+    <div class="tab">
+        <a class="tab__list" href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => '']))) }}"
+            style="{{ $tab !== 'mylist' ? 'color: red; font-weight: bold;' : '' }}">おすすめ</a>
 
-        <div>
-            <div style="margin: 20px;">
-                <a href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => '']))) }}"
-                    style="{{ $tab !== 'mylist' ? 'color: red; font-weight: bold;' : '' }}">おすすめ</a>
+        <a class="tab__mylist" href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => 'mylist']))) }}"
+            style="{{ $tab === 'mylist' ? 'color: red; font-weight: bold;' : '' }}">マイリスト</a>
+    </div>
+    <hr>
+    @if ($items->isEmpty())
+        <p class="favorite">いいねした商品がありません</p>
+    @else
+        <div class="items__list">
+            @foreach ($items as $item)
+                <div class="item__list">
+                    <a href="/item/{{ $item->id }}"> <img class="item__img" src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"></a>
 
-                <a href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => 'mylist']))) }}"
-                    style="{{ $tab === 'mylist' ? 'color: red; font-weight: bold;' : '' }}">マイリスト</a>
-            </div>
-        </div>
-
-        <div>
-            @if ($items->isEmpty())
-                <p>いいねした商品がありません</p>
-            @else
-                <div style="display: flex; flex-wrap: wrap;">
-                    @foreach ($items as $item)
-                        <div style="margin: 10px; width: 200px;">
-                            <a href="/item/{{ $item->id }}"> <img
-                                    src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"
-                                    width="200">
-                            </a>
-                            <P>
-                                @if($item->is_sold)
-                                {{ $item->name }} <strong style="color: red;">[sold]</strong>
-                                @else
-                                {{ $item->name }}
-                            </P>
-                            @endif
-                        </div>
-                    @endforeach
+                    <P>
+                        @if ($item->is_sold)
+                            {{ $item->name }} <strong style="color: red;">[sold]</strong>
+                        @else
+                            {{ $item->name }}
+                        @endif
+                    </P>
                 </div>
-            @endif
+            @endforeach
         </div>
-    </body>
+    @endif
+
 @endsection

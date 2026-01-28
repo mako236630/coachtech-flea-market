@@ -1,3 +1,4 @@
+/* ボックスモデルのリセット*/
 * {
     margin: 0;
     padding: 0;
@@ -11,17 +12,22 @@ body {
 
 .header {
     background-color: black;
-    padding: 20px 20px;
+    padding: 10px 0px;
+    width: 100%;
 }
 
 .header__inner {
+    max-width: 1540px;
+    width: 95%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .header__logo img {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     height: auto;
     margin-left: 10px;
     margin-right: 20px;
@@ -29,15 +35,14 @@ body {
 
 .header__seach {
     display: flex;
-    max-width: 700px;
-    margin: 0 50px;
-    margin-right: 80px;
+
+    margin: 0 20px;
     justify-content: center;
     flex: 1;
 }
 
 .header__seach form {
-    width: 80%;
+    width: 75%;
 }
 
 .header__seach input {
@@ -90,4 +95,47 @@ body {
     padding: 5px 150px;
 }
 
+.tab,
+.page {
+    padding: 30px 0 10px 180px;
+}
 
+.tab__list,
+.tab__mylist,
+.page__sell,
+.page__buy {
+    color: #808080;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tab__list,
+.page__sell {
+    padding-right: 60px;
+}
+
+@media screen and (max-width: 480px) {
+    .header__nav {
+        gap: 5px;
+        /* ボタン同士の間隔を最小限に */
+    }
+
+    .header__logo img {
+        width: 90px;
+        /* 数値は適宜調整してください */
+    }
+
+        .header__seach {
+            display: none;
+        }
+
+    .header__nav a,
+    .header__nav button {
+        flex: 1;
+        font-size: 10px;
+        gap: 5px;
+        /* ↓ここが重要！PC用の「120px」という命令をスマホでは解除します */
+        min-width: auto;
+    }
+}

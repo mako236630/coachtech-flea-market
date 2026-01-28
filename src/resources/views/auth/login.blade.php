@@ -37,7 +37,7 @@
                     {{ $message }}
                 @enderror
             </div>
-            <div>
+            <div class="button__container">
                 <button class="button" type="submit">ログインする</button>
             </div>
         </form>

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('css')
 </head>
 
 <body>
@@ -42,10 +43,10 @@
                     <a href="{{ route('login') }}">
                         <button style="submit">ログイン</button>
                     </a>
-                    <a href="">
+                    <a href="{{ route('login') }}">
                         <button style="submit">マイページ</button>
                     </a>
-                    <a href="">
+                    <a href="{{ route('login') }}">
                         <button style="submit" class="sell__button">出品</button>
                     </a>
                 </nav>
