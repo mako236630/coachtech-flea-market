@@ -13,11 +13,14 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // 商品一覧画面で、おすすめ・マイリストのタブの切り替えとキーワード検索に対応しています
     public function index(Request $request)
     {
         $tab = $request->query("tab");
 
         if ($tab === "mylist") {
+            //マイリスト表示はログイン必須の為、未ログインの場合はログイン画面に移動します
             if (!Auth::check()) {
 
                 return redirect()->route("login");
