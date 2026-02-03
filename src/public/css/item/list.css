@@ -1,5 +1,6 @@
 
-.favorite {
+.favorite,
+.item-list {
     padding: 30px;
     text-align: center;
 }
@@ -21,6 +22,7 @@
 
 .item__img {
     width: 300px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
 }
 

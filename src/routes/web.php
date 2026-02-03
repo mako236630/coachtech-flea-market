@@ -27,7 +27,6 @@ Route::get("/item/{item_id}", [ItemController::class, "show"])->name("item.show"
 Route::post("/item/{item_id}/comment", [CommentController::class, "store"])->name("comment.store")->middleware("auth");
 Route::post("/item/{item_id}/favorite", [FavoriteController::class, "store"])->name("favorite.store")->middleware("auth");
 Route::get("/purchase/{item_id}", [PurchaseController::class, "index"])->name("item.purchase")->middleware("auth");
-Route::post("/purchase/{item_id}", [PurchaseController::class, "store"])->name("purchase.store");
 Route::get("/purchase/address/{item_id}", [AddressController::class, "index"])->name("purchase.address");
 Route::post("/purchase/address/{item_id}", [AddressController::class, "update"])->name("address.update");
 Route::post("/puechase/checkout/{item_id}", [PurchaseController::class, "checkout"])->name("purchase.checkout");
@@ -35,4 +34,5 @@ Route::get("/purchase/success/{item_id}", [PurchaseController::class, "success"]
 Route::get("/mypage", [ProfileController::class, "index"])->name("mypage.index")->middleware("auth");
 Route::get("/mypage/profile", [ProfileController::class, "edit"])->name("profile.edit");
 Route::post("/mypage/profile", [ProfileController::class, "update"])->name("profile.update");
-Route::get("/sell", [ItemController::class, "create"])->name("sell.create");
+Route::get("/sell", [ItemController::class, "create"])->name("sell.create")->middleware("auth");
+Route::post("/sell", [ItemController::class, "store"])->name("sell.store");

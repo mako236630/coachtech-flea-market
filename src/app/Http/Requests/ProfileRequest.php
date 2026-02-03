@@ -40,7 +40,7 @@ class ProfileRequest extends FormRequest
             "postcode.required" => "郵便番号を入力してください",
             "postcode.regex" => "郵便番号は-(ハイフン)を含めた8文字で入力してください",
             "address.required" => "住所を入力してください",
-            "image.mimes" => "画像ファイルはjpegかpng形式を選択してください"
+            "image.mimes" => "画像ファイルはjpeg、png、jpg形式を選択してください"
         ];
     }
 }

@@ -1,10 +1,17 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/user/mypage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user/mypage.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')
+
+    @if (session('message'))
+        <div class="alert__success">
+            {{ session('message') }}
+        </div>
+    @endif
+
     <main>
 
         <div class="profile">
@@ -20,14 +27,12 @@
             <a class="profile__setting" href="{{ route('profile.edit') }}">プロフィールを編集</a>
         </div>
 
-
         <div class="page">
             <a class="page__sell" href="/mypage?page=sell"
                 style="{{ $page === 'sell' ? 'color: red; font-weight: bold;' : '' }}">出品した商品</a>
             <a class="page__buy" href="/mypage?page=buy"
                 style="{{ $page === 'buy' ? 'color: red; font-weight: bold;' : '' }}">購入した商品</a>
         </div>
-
 
         <HR>
 

@@ -15,7 +15,11 @@
     </div>
     <hr>
     @if ($items->isEmpty())
+    @if ($tab === 'mylist')
         <p class="favorite">いいねした商品がありません</p>
+        @else
+        <p class="item-list">現在、おすすめの商品がありません</p>
+        @endif
     @else
         <div class="items__list">
             @foreach ($items as $item)

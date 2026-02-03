@@ -27,7 +27,7 @@ class ExhibitionRequest extends FormRequest
             "name" => "required",
             "description" => "required|max:255",
             "price" => "required|numeric|min:0",
-            "image" => "required|mimes:jpeg,png",
+            "image" => "required|mimes:jpeg,png,jpg",
 
             "category_ids" => "required",
             "condition_id" => "required",
@@ -44,7 +44,7 @@ class ExhibitionRequest extends FormRequest
             "price.numeric" => "販売価格は半角数字で入力してください",
             "price.min" => "販売価格は0円以上の金額を入力してください",
             "image.required" => "画像を添付してください",
-            "image.mimes" => "画像は.jpegもしくは.pngを添付してください",
+            "image.mimes" => "画像ファイルはjpeg、png、jpg形式を選択してください",
 
             "category_ids.required" => "商品のカテゴリーを選択してください",
             "condition_id.required" => "商品の保存状態を選択してください",

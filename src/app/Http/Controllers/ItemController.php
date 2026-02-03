@@ -47,7 +47,10 @@ class ItemController extends Controller
 
         $items = $query->get();
 
-        return view('item.list', compact('items', "tab"));
+        // ログインしている場合、自分以外のIDの商品だけを取得し、未認証の場合は全件取得します
+        $items = Item::where('user_id',  '!=', auth()->id())->get();
+
+        return view('item.list', compact('items', "tab", "items"));
     }
 
     /**
@@ -71,7 +74,29 @@ class ItemController extends Controller
      */
     public function store(ExhibitionRequest $request)
     {
-        //
+        $path = null;
+
+        if($request->hasfile("image")){
+            $path = $request->file("image")->store("image", "public");
+        }
+
+        $item = Item::create([
+            // 誰の出品なのか
+            "user_id" => Auth::id(),
+            "name" => $request->name,
+            "brand_name" => $request->brand_name,
+            "description" => $request->description,
+            "price" => $request->price,
+            "image" => $path,
+            "condition_id" => $request->condition_id,
+        ]);
+
+        // カテゴリーは中間テーブルを作成している為、Itemモデルで定義したカテゴリーのリレーションを呼び出し保存をします
+        if ($request->has('category_ids')) {
+            $item->categories()->attach($request->category_ids);
+        }
+
+        return redirect()->route('mypage.index')->with('message', '商品を出品しました！');
     }
 
     /**
