@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Condition;
+use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -54,7 +57,10 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $conditions = Condition::all();
+
+        return view("item.sell", compact('categories', 'conditions'));
     }
 
     /**
@@ -63,7 +69,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
         //
     }

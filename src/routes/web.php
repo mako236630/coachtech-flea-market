@@ -7,6 +7,8 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SellController;
+use App\Models\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,4 @@ Route::get("/purchase/success/{item_id}", [PurchaseController::class, "success"]
 Route::get("/mypage", [ProfileController::class, "index"])->name("mypage.index")->middleware("auth");
 Route::get("/mypage/profile", [ProfileController::class, "edit"])->name("profile.edit");
 Route::post("/mypage/profile", [ProfileController::class, "update"])->name("profile.update");
+Route::get("/sell", [ItemController::class, "create"])->name("sell.create");

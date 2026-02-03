@@ -29,12 +29,12 @@
                 @auth
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button style="submit">ログアウト</button>
+                        <button type="submit">ログアウト</button>
                     </form>
                     <a href="{{ route("mypage.index") }}">
                         <button style="submit">マイページ</button>
                     </a>
-                    <a href="">
+                    <a href="{{ route('sell.create') }}">
                         <button style="submit" class="sell__button">出品</button>
                     </a>
                 @endauth

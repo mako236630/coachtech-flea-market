@@ -14,29 +14,23 @@ class PurchaseController extends Controller
     public function index($item_id)
     {
         $item = Item::findOrFail($item_id);
+        // 配送先の住所は1件だけ取得できれば良いので、first()を使用しました。ビューでも$address->addressのように使いやすくしています。
         $address = Address::where('user_id', Auth::id())->first();
 
 
         return view("item.purchase", compact("item", "address"));
     }
 
-
-    public function store(PurchaseRequest $request, $item_id)
-    {
-        $item = Item::findOrFail($item_id);
-
-    }
-
+    // Stripe決済ページへ繋げます
     public function checkout(PurchaseRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
 
         $paymentMethod = $request->input("payment_method");
-
+        // Stripe用に支払方法を直してます
         $stripeMethod = ($paymentMethod === 'convenience') ? 'konbini' : 'card';
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
         \Stripe\Stripe::setVerifySslCerts(false);
 
         $session = \Stripe\Checkout\Session::create([
@@ -51,18 +45,32 @@ class PurchaseController extends Controller
             ]],
 
             'mode' => 'payment',
-            'success_url' => route('purchase.success', ['item_id' => $item->id]),
+            // 支払い後にsession_idを持たせて、後で支払済みか確認します
+            'success_url' => route('purchase.success', ['item_id' => $item->id]) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'  => route('item.show', ['item_id' => $item->id]),
         ]);
 
         return redirect()->away($session->url);
     }
 
-    public function success($item_id)
+    public function success(Request $request, $item_id)
     {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setVerifySslCerts(false);
+        // session_idを受け取ります
+        $sessionId = $request->get('session_id');
+        // Stripeに照会し、支払い済みか確認
+        $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+        // 未払い(paidではなかったら)、エラーにします
+        if ($session->payment_status !== 'paid') {
+            return redirect()->route('item.show', $item_id)->with('error', '決済が完了していません');
+        }
+
         $item = Item::findOrFail($item_id);
         $item->update([
             'is_sold' => true,
+            // 購入者を保存します
             'buyer_id' => Auth::id(),
             ]);
 

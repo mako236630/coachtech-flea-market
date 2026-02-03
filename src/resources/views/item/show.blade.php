@@ -46,6 +46,14 @@
                 </div>
             </div>
 
+            {{-- 決済エラー時の表示 --}}
+            @if (session('error'))
+                <div class="alert alert-danger"
+                    style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+                    {{ session('error') }}
+                </div>
+            @endif
+
 
             <div class="item__purchase-btn">
                 @if ($item->is_sold)
