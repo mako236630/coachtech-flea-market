@@ -23,8 +23,8 @@ class ItemController extends Controller
         $tab = $request->query("tab");
 
         if ($tab === "mylist") {
-            //マイリスト表示はログイン必須の為、未ログインの場合はログイン画面に移動します
-            if (!Auth::check()) {
+            //マイリスト表示はログイン・認証必須の為、未認証の場合はログイン画面に移動します
+            if (!Auth::check() || !Auth::user()->hasVerifiedEmail()) {
 
                 return redirect()->route("login");
             }
@@ -45,10 +45,10 @@ class ItemController extends Controller
             });
         }
 
-        $items = $query->get();
-
         // ログインしている場合、自分以外のIDの商品だけを取得し、未認証の場合は全件取得します
         $items = Item::where('user_id',  '!=', auth()->id())->get();
+
+        $items = $query->get();
 
         return view('item.list', compact('items', "tab", "items"));
     }

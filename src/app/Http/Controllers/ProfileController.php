@@ -53,13 +53,12 @@ class ProfileController extends Controller
             ]
         );
 
-        //$userをモデルだと認識しないので、@varを使用してuserモデルだと認識させ、メゾットエラーを解消させました
+        // $userをモデルだと認識しないので、@varを使用してuserモデルだと認識させ、メゾットエラーを解消させました
 
         /** @var \App\Models\User $user */ 
         $user->update(
             ["name" => $request->name]);
 
-            // 画像を
             if($request->hasFile("image")){
                 $path = $request->file("image")->store("profile_images", "public");
 
@@ -68,6 +67,6 @@ class ProfileController extends Controller
                 ]);
             }
 
-        return redirect()->route("mypage.index");
+        return redirect()->route("item.list");
     }
 }

@@ -8,9 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -63,5 +64,16 @@ class User extends Authenticatable
     public function purchasedItems()
     {
         return $this->hasMany(Item::class, "buyer_id");
+    }
+
+    // メール認証の通知を送るメゾット　自分のルールに変更
+    public function sendEmailVerificationNotification()
+    {
+        // 会員登録直後なら処理をしない(return;)
+        if ($this->wasRecentlyCreated) {
+            return;
+        }
+        //　メール認証ボタンを押したらメールが送信される
+        $this->notify(new \Illuminate\Auth\Notifications\VerifyEmail);
     }
 }
