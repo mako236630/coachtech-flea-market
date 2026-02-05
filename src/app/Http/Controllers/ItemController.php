@@ -23,10 +23,17 @@ class ItemController extends Controller
         $tab = $request->query("tab");
 
         if ($tab === "mylist") {
-            //マイリスト表示はログイン・認証必須の為、未認証の場合はログイン画面に移動します
-            if (!Auth::check() || !Auth::user()->hasVerifiedEmail()) {
+            //ログインしていないユーザーはログイン画面へ
+            if (!Auth::check()) {
 
                 return redirect()->route("login");
+            }
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+
+            // メール未認証ならメール認証誘導画面へ
+            if (!$user->hasVerifiedEmail()) {
+                return redirect()->route("verification.notice");
             }
 
             /** @var \App\Models\User $user */

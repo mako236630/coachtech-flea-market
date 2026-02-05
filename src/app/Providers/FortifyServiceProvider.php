@@ -103,7 +103,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         // メール認証成功後のリダイレクト先を強制的にプロフィール設定画面に設定。（商品を購入する際に住所を登録していないとエラーになる為）
         $this->app->instance(VerifyEmailResponse::class, new class extends VerifyEmailResponse {
-            public function toResponce($request)
+            public function toResponse($request)
             {
                 return $request->wantsJson()
                     ? new JsonResponse('', 204)
