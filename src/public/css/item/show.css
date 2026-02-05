@@ -180,3 +180,202 @@
     width: 80%;
     border-radius: 3px;
 }
+
+/* タブレット (768-850px) */
+@media screen and (max-width: 850px) {
+
+    .item__show {
+        max-width: 850px;
+        width: 90% !important;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 70px 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .item__image {
+        width: 40%;
+        vertical-align: top;
+        flex-shrink: 0;
+    }
+
+    .item__image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .item__description {
+        flex: 1;
+    }
+
+    .item__brand {
+        margin-bottom: 10px;
+    }
+
+    .item__show-price {
+        margin-bottom: 5px;
+    }
+
+    .item__price {
+        font-size: 25px;
+    }
+
+    .item__sold {
+        font-weight: bold;
+        font-size: 20px;
+        color: red;
+        padding-left: 20px;
+    }
+
+    .item__favorite-comment {
+        display: flex;
+        padding-left: 20px;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .item__favorite {
+        padding-right: 20px;
+    }
+
+    .favorite__btn {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .favorite__count,
+    .comment__count {
+        margin: 0;
+        padding-left: 10px;
+        font-size: 10px;
+    }
+
+
+    .item__comment {
+        padding-left: 50px;
+    }
+
+    .error {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+    }
+
+    .item__purchase-btn {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .button {
+        width: 100%;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+        padding: 10px 0;
+    }
+
+    .item__show-description {
+        padding-bottom: 30px;
+    }
+
+    .item__category {
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+
+    .item__show-category {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+        padding-bottom: 25px;
+    }
+
+    .category__list {
+        display: flex;
+        gap: 10px;
+    }
+
+    .category__name {
+        margin: 0;
+        padding: 5px 20px 5px 20px;
+        background-color: #e0e0e0;
+        border-radius: 50px;
+    }
+
+    .item__condition {
+        display: flex;
+        gap: 60px;
+        padding-bottom: 30px;
+    }
+
+    .item__comments {
+        color: gray;
+    }
+
+    .comment__user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .comment__user-image {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        /* 中央で切りぬく　*/
+        background-color: #e0e0e0;
+        display: block;
+    }
+
+    .comment__user-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .item__user-comment {
+        width: 100%;
+        background-color: #e0e0e0;
+        font-size: 14px;
+        border-radius: 3px;
+        padding-top: 9px;
+        padding-bottom: 9px;
+    }
+
+    .user__comment {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .comment {
+        padding-top: 20px;
+    }
+
+    .comment__message {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .textarea {
+        width: 100%;
+        border-radius: 3px;
+    }
+
+    .alert__danger {
+        color: red;
+        border: 1px solid red;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+}

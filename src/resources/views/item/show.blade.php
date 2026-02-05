@@ -48,7 +48,7 @@
 
             {{-- 決済エラー時の表示 --}}
             @if (session('error'))
-                <div class="alert alert-danger"
+                <div class="alert__danger"
                     style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
                     {{ session('error') }}
                 </div>

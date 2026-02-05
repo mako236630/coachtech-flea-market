@@ -33,6 +33,7 @@ class ItemController extends Controller
 
             // メール未認証ならメール認証誘導画面へ
             if (!$user->hasVerifiedEmail()) {
+                
                 return redirect()->route("verification.notice");
             }
 
