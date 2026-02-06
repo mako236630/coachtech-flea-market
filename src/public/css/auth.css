@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.container {
+    max-width: 1540px !important;
+    margin: 0 auto !important;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -15,13 +20,17 @@ body {
 }
 
 .header__inner {
+    max-width: 1540px;
+    width: 95%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .header__logo img {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     height: auto;
     margin-left: 10px;
     margin-right: 20px;
@@ -29,7 +38,8 @@ body {
 
 .register,
 .login {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     margin: 0 auto;
     text-align: center;
 }
@@ -82,5 +92,15 @@ body {
     font-size: 10;
     color: #007DC5;
     text-decoration: none;
+}
+
+/* タブレット (768-850px) */
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
+
+
+    .header__logo img {
+        max-width: 170px;
+    }
 }
 

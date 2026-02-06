@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
     @if (session('message'))
         <div class="alert__success">
             {{ session('message') }}
@@ -21,7 +20,7 @@
                 src="{{ $user->image ? asset('storage/' . $user->image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' }}">
 
             <div class="user__name">
-                <h1>{{ $user->name }}</h1>
+                <strong>{{ $user->name }}</strong>
             </div>
 
             <a class="profile__setting" href="{{ route('profile.edit') }}">プロフィールを編集</a>
@@ -36,21 +35,29 @@
 
         <HR>
 
-        <div class="items__list">
-            @foreach ($items as $item)
-                <div class="item__list">
-                    <a href="/item/{{ $item->id }}"> <img class="item__img"
-                            src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"></a>
+        @if ($items->isEmpty())
+            @if ($page === 'sell')
+                <p class="item__sell">出品した商品はありません</p>
+            @else
+                <p class="item__buy">購入した商品はありません</p>
+            @endif
+        @else
+            <div class="items__list">
+                @foreach ($items as $item)
+                    <div class="item__list">
+                        <a href="/item/{{ $item->id }}"> <img class="item__img"
+                                src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"></a>
 
-                    <P>
-                        @if ($item->is_sold)
-                            {{ $item->name }} <strong style="color: red;">[sold]</strong>
-                        @else
-                            {{ $item->name }}
-                        @endif
-                    </P>
-                </div>
-            @endforeach
+                        <P>
+                            @if ($item->is_sold)
+                                {{ $item->name }} <strong class="item__sold">sold</strong>
+                            @else
+                                {{ $item->name }}
+                            @endif
+                        </P>
+                    </div>
+                @endforeach
+        @endif
         </div>
     </main>
 

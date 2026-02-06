@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+.container {
+    max-width: 1540px;
+    margin: 0 auto;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -116,7 +121,8 @@ body {
 }
 
 /* タブレット (768-850px) */
-@media screen and (max-width: 850px) {
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
 
 
     .header__logo img {

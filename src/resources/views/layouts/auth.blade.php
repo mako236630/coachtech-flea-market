@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    @yield('css')
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         </div>
        </header>
 
-    <main>
+    <main class="container">
         @yield('content')
     </main>
 

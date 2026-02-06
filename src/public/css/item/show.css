@@ -1,13 +1,13 @@
 .item__show {
     max-width: 1200px;
-    width: 100%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     padding: 70px 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 70px;
+    gap: 120px;
 }
 
 .item__image {
@@ -82,10 +82,12 @@
 .item__purchase-btn {
     padding-top: 20px;
     padding-bottom: 20px;
+    font-size: 12px;
 }
 
 .button {
     width: 80%;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -170,6 +172,16 @@
     padding-top: 20px;
 }
 
+.user-no-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 中央で切りぬく　*/
+    background-color: #e0e0e0;
+    display: block;
+}
+
 .comment__message {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -182,7 +194,8 @@
 }
 
 /* タブレット (768-850px) */
-@media screen and (max-width: 850px) {
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
 
     .item__show {
         max-width: 850px;
@@ -258,6 +271,16 @@
 
     .item__comment {
         padding-left: 50px;
+    }
+
+    .user-no-img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        /* 中央で切りぬく　*/
+        background-color: #e0e0e0;
+        display: block;
     }
 
     .error {

@@ -95,11 +95,15 @@
 
             @foreach ($item->comments as $comment)
                 <div class="comment__user">
+                    @if($comment->user->image)
                     <div class="comment__user-image">
                         {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
                         <img
                             id="preview"src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : asset('images/no-image.png') }}">
                     </div>
+                    @else
+                    <div class="user-no-img"></div>
+                    @endif
                     <strong>{{ $comment->user->name }}</strong>
                 </div>
 

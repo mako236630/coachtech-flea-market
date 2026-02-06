@@ -189,3 +189,27 @@ h2 {
 .sell__button {
     padding-bottom: 60px;
 }
+
+/* タブレット (768-850px) */
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
+
+    .sell__item {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .sell__item-condition {
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+
+    .label {
+        display: block;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        padding-bottom: 16px;
+    }
+}

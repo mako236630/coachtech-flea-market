@@ -117,7 +117,8 @@ td {
 }
 
 /* タブレット (768-850px) */
-@media screen and (max-width: 850px) {
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
 
     .main {
         display: flex;
