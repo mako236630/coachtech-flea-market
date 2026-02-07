@@ -43,10 +43,9 @@ Route::post("/sell", [ItemController::class, "store"])->name("sell.store");
 });
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    // 1. 認証を完了させる
+    // メール認証したことをDBに書き込み
     $request->fulfill();
 
-    // 2. intended() を使わずに、普通の redirect() を使う
-    // これで「さっき見ていたページ」の記憶は完全に無視されます
+    // メール認証前に見ていたページに戻るのではなく、必ずプロフィール編集画面に飛ばし、住所登録させます（intendedさせません）
     return redirect('/mypage/profile?verified=1');
 })->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
