@@ -8,9 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -39,6 +41,28 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+
         'email_verified_at' => 'datetime',
     ];
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function favorite_items()
+    {
+        return $this->belongsToMany(Item::class, "favorites", "user_id", "item_id");
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
+
+    // itemsテーブルのbuyer_idと繋げて購入者を取得できるようにする
+    public function purchasedItems()
+    {
+        return $this->hasMany(Item::class, "buyer_id");
+    }
 }

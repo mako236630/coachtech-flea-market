@@ -1,0 +1,100 @@
+strong {
+    font-size: 20px;
+    text-align: center;
+}
+
+.verify__email {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    align-items: center;
+    margin-bottom: 10px !important;
+    padding-top: 150px;
+}
+
+.verify__button {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.verify__email-button {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    color: black;
+    padding: 5px 15px 5px 15px;
+    border: 2px solid gray;
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.resend__verify-email {
+    padding-top: 30px;
+}
+
+.resend__email {
+    display: block;
+    border: none;
+    background-color: white;
+    color: #007DC5;
+    cursor: pointer;
+}
+
+/* タブレット (768-850px) */
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
+
+    main {}
+
+    strong {
+        font-size: 20px;
+        text-align: center
+    }
+
+    .verify__email {
+        width: 100%;
+        display: grid;
+        place-items: center;
+        align-items: center;
+        margin-bottom: 10px !important;
+        padding-top: 150px;
+    }
+
+    .verify__button {
+        width: 100%;
+        display: grid;
+        place-items: center;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    .verify__email-button {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 14px;
+        color: black;
+        padding: 5px 15px 5px 15px;
+        border: 2px solid gray;
+        background-color: #d9d9d9;
+        border-radius: 7px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .resend__verify-email {
+        padding-top: 30px;
+    }
+
+    .resend__email {
+        display: block;
+        border: none;
+        background-color: white;
+        color: #007DC5;
+        cursor: pointer;
+    }
+}

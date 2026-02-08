@@ -17,6 +17,8 @@ class Item extends Model
         "image",
         "condition_id",
         "user_id",
+        "is_sold",
+        "buyer_id",
     ];
 
     public function categories()
@@ -27,5 +29,20 @@ class Item extends Model
     public function condition()
     {
         return $this->belongsTo(Condition::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function is_favorited_by_auth_user()
+    {
+        return $this->favorites()->where("user_id", auth()->id())->exists();
     }
 }

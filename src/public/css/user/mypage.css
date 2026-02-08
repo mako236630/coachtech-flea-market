@@ -1,0 +1,147 @@
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1540px;
+    width: 60%;
+    margin: 0 auto;
+    padding: 30px 0 20px 0;
+}
+
+
+.profile__image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 中央で切りぬく　*/
+    background-color: #e0e0e0;
+    display: block;
+}
+
+
+.user__name {
+    padding-right: 400px;
+    white-space: nowrap;
+}
+
+
+.profile__setting {
+    display: inline-block;
+    padding: 5px 30px 5px 30px;
+    border: 2px solid #ff6666;
+    color: #ff6666;
+    text-decoration: none;
+    font-weight: bold;
+    white-space: nowrap;
+    border-radius: 7px;
+}
+
+.alert__success {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+    color: #ff6666;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.items__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    max-width: 1540px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.item__list {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.item__img {
+    width: 300px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.item__sold {
+    color: red;
+}
+
+.item__sell,
+.item__buy {
+    padding: 30px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* タブレット (768-850px) */
+/* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
+@media screen and (max-width: 860px) {
+
+    .profile {
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 75%;
+        justify-content: flex-start;
+        padding: 30px 0 20px 0;
+    }
+
+    .profile__image {
+        margin-right: 15px;
+    }
+
+    .user__name {
+        white-space: nowrap;
+        margin-right: auto;
+        padding-right: 0;
+    }
+
+    strong {
+        font-size: 20px;
+    }
+
+    .profile__setting {
+        display: flex;
+        padding: 5px 20px 5px 20px;
+        border: 2px solid #ff6666;
+        color: #ff6666;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+        white-space: nowrap;
+        border-radius: 7px;
+    }
+
+    .items__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        max-width: 850px;
+        width: 95%;
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+
+    .item__list {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .item__img {
+        width: 100px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    .item__sold {
+        color: red;
+        font-size: 14px;
+    }
+
+}

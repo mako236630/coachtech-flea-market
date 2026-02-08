@@ -1,0 +1,99 @@
+.profile__setting {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title {
+    font-size: 15px;
+    padding: 50px;
+}
+
+
+.profile__image-setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+
+.profile__image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 中央で切りぬく　*/
+    background-color: #e0e0e0;
+    display: block;
+}
+
+
+.image__input {
+    display: none;
+}
+
+
+.image__setting {
+    padding: 8px 16px;
+    border: 2px solid #ff6666;
+    color: #ff6666;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+
+.button,
+.input {
+    font-size: 20px;
+    border-radius: 3px;
+    width: 100%;
+    padding: 5px;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+
+.label {
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.input {
+    border: 1px solid #808080;
+}
+
+.session__error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+
+.error {
+    text-align: left;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
+
+.button__container {
+    padding: 50px 0px 10px 0px;
+}
+
+.button {
+    background-color: #ff6666;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}

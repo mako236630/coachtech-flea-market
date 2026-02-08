@@ -19,6 +19,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+
         app(\App\Http\Requests\RegisterRequest::class)->validateResolved();
         app(\App\Http\Requests\LoginRequest::class)->validateResolved();
 
