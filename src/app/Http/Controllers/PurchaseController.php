@@ -27,14 +27,23 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
 
         $paymentMethod = $request->input("payment_method");
-        // Stripe用に支払方法を直してます
-        $stripeMethod = ($paymentMethod === 'convenience') ? 'konbini' : 'card';
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         \Stripe\Stripe::setVerifySslCerts(false);
 
+        //コンビニ決済を選択した場合、テスト環境では実際にコンビニで支払うことができない為、今回は購入するボタンを押したら購入完了の動きにしました。
+        if ($paymentMethod === "convenience"){
+            $item->update([
+                "is_sold" => true,
+                "buyer_id" => Auth::id(),
+            ]);
+
+            return redirect()->route("item.show", $item->id);
+
+        }else{
+
         $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => [$stripeMethod],
+            'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
                     'currency'     => 'jpy',
@@ -52,6 +61,8 @@ class PurchaseController extends Controller
 
         return redirect()->away($session->url);
     }
+    }
+    
 
     public function success(Request $request, $item_id)
     {
