@@ -14,7 +14,7 @@ use Database\Seeders\CategoriesTableSeeder;
 use Database\Seeders\ConditionsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 
-class ItemTest extends TestCase
+class ItemListTest extends TestCase
 
 {
     use RefreshDatabase;
