@@ -156,8 +156,12 @@ class ItemShowTest extends TestCase
 
         /** @var \App\Models\User $user */
         $response = $this->actingAs($user)->post("/item/{$item->id}/favorite");
+        $beforeCount = $item->favorites()->count();
+
         // 再度いいねを押す
         $response = $this->actingAs($user)->post("/item/{$item->id}/favorite");
+        $afterCount = $item->fresh()->favorites()->count();
+
         $response = $this->get("/item/{$item->id}");
 
         $this->assertDatabaseMissing("favorites", [
@@ -166,6 +170,8 @@ class ItemShowTest extends TestCase
         ]);
 
         $response->assertSee('images/heart.png');
+        //いいねのカウントが減少しているか
+        $this->assertEquals($beforeCount - 1, $afterCount);
     }
 
     public function test_ログイン済みのユーザーはコメントを送信できる()
@@ -204,5 +210,88 @@ class ItemShowTest extends TestCase
         ]);
 
         $response->assertSee($item->fresh()->comments->count());
+    }
+
+    public function test_ログイン前のユーザーはコメントを送信できない()
+    {
+        // シーダ―でユーザーが必要な為、ユーザーも準備してます
+        User::factory()->count(2)->create();
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
+
+        $item = Item::first();
+
+        $myComment = "テスト専用コメント";
+
+        $response = $this->post("/item/{$item->id}/comment", [
+            "comment" => $myComment,
+        ]);
+
+        $response->assertRedirect("/login");
+
+        $this->assertDatabaseMissing("comments", [
+            "comment" => $myComment,
+        ]);
+    }
+
+    public function test_コメントが入力されていない場合バリデーションが表示()
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        Address::factory()->create([
+            "user_id" => $user->id,
+            "postcode" => "123-4567",
+            "address" => "東京都...",
+        ]);
+
+        // シーダ―でユーザーが必要な為、ユーザーも準備してます
+        User::factory()->create();
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
+
+        $item = Item::first();
+
+        /** @var \App\Models\User $user */
+        $response = $this->actingAs($user)->post("/item/{$item->id}/comment");
+
+        $response->assertSessionHasErrors([
+            "comment" => "コメントを入力してください",
+        ]);
+    }
+
+    public function test_コメントが255文字以上の場合バリデーションエラー()
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        Address::factory()->create([
+            "user_id" => $user->id,
+            "postcode" => "123-4567",
+            "address" => "東京都...",
+        ]);
+
+        // シーダ―でユーザーが必要な為、ユーザーも準備してます
+        User::factory()->create();
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
+
+        $item = Item::first();
+
+        $Comment = str_repeat("あ", 256);
+
+        /** @var \App\Models\User $user */
+        $response = $this->actingAs($user)->post("/item/{$item->id}/comment", [
+            "comment" => "$Comment",
+        ]);
+
+        $response->assertSessionHasErrors([
+            "comment" => "コメントは255文字以内で入力してください"
+        ]);
     }
 }

@@ -19,6 +19,7 @@ class Item extends Model
         "user_id",
         "is_sold",
         "buyer_id",
+        "address_id",
     ];
 
     public function categories()
@@ -44,5 +45,10 @@ class Item extends Model
     public function is_favorited_by_auth_user()
     {
         return $this->favorites()->where("user_id", auth()->id())->exists();
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 }

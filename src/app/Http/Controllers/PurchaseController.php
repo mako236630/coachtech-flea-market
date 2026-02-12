@@ -36,9 +36,10 @@ class PurchaseController extends Controller
             $item->update([
                 "is_sold" => true,
                 "buyer_id" => Auth::id(),
+                'address_id' => Auth::user()->address->id,
             ]);
 
-            return redirect()->route("item.show", $item->id);
+            return redirect()->route("item.list");
 
         }else{
 
@@ -83,8 +84,9 @@ class PurchaseController extends Controller
             'is_sold' => true,
             // 購入者を保存します
             'buyer_id' => Auth::id(),
+            'address_id' => Auth::user()->address->id,
             ]);
 
-        return redirect()->route('item.show', ['item_id' => $item_id]);
+        return redirect()->route('item.list');
     }
 }

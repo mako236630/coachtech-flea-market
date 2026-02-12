@@ -102,7 +102,6 @@
                 // 現在選ばれている選択肢の「文字」を取得する
                 const selectedText = selectElement.options[selectElement.selectedIndex].text;
 
-                // 表示用の場所に、その文字をパッと書き換える！
                 displayElement.textContent = selectedText;
             });
         });
