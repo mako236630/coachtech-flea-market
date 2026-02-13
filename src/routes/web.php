@@ -33,7 +33,7 @@ Route::post("/item/{item_id}/favorite", [FavoriteController::class, "store"])->n
 Route::get("/purchase/{item_id}", [PurchaseController::class, "index"])->name("item.purchase")->middleware("auth");
 Route::get("/purchase/address/{item_id}", [AddressController::class, "index"])->name("purchase.address");
 Route::post("/purchase/address/{item_id}", [AddressController::class, "update"])->name("address.update");
-Route::post("/puechase/checkout/{item_id}", [PurchaseController::class, "checkout"])->name("purchase.checkout");
+Route::post("/purchase/checkout/{item_id}", [PurchaseController::class, "checkout"])->name("purchase.checkout");
 Route::get("/purchase/success/{item_id}", [PurchaseController::class, "success"])->name("purchase.success");
 Route::get("/mypage", [ProfileController::class, "index"])->name("mypage.index")->middleware("auth");
 Route::get("/mypage/profile", [ProfileController::class, "edit"])->name("profile.edit")->middleware("auth", 'verified');

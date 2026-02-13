@@ -67,6 +67,6 @@ class ProfileController extends Controller
                 ]);
             }
 
-        return redirect()->route("mypage.index");
+        return redirect()->route("item.list");
     }
 }

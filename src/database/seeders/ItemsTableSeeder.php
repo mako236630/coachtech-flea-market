@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Item;
+use App\Models\Comment;
+use App\Models\Favorite;
+use App\Models\User;
 
 class ItemsTableSeeder extends Seeder
 {
@@ -24,6 +27,8 @@ class ItemsTableSeeder extends Seeder
                 "category_id" => [1, 5],
                 "condition_id" => 1,
                 "user_id" => 1,
+                'is_sold' => true,
+                'buyer_id' => 2,
             ],
             [
                 "name" => "HDD",
@@ -34,6 +39,8 @@ class ItemsTableSeeder extends Seeder
                 "category_id" => [2],
                 "condition_id" => 2,
                 "user_id" => 1,
+                'is_sold' => true,
+                'buyer_id' => 2,
             ],
             [
                 "name" => "玉ねぎ3束",
@@ -103,7 +110,7 @@ class ItemsTableSeeder extends Seeder
                 "image" => "https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg",
                 "category_id" => [10],
                 "condition_id" => 1,
-                "user_id" => 1,
+                "user_id" => 2,
             ],
             [
                 "name" => "メイクセット",
@@ -113,10 +120,12 @@ class ItemsTableSeeder extends Seeder
                 "image" => "https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg",
                 "category_id" => [4, 6],
                 "condition_id" => 2,
-                "user_id" => 1,
+                "user_id" => 2,
             ],
+            
         ];
 
+        // 商品テーブルにはカテゴリーを保存できないので、中間テーブルに保存してます
         foreach ($items as $itemData) {
             $categoryIds = $itemData['category_id'];
             unset($itemData['category_id']);
@@ -124,5 +133,16 @@ class ItemsTableSeeder extends Seeder
 
             $item->categories()->attach($categoryIds);
         }
+
+        Comment::create([
+            "item_id" => 1,
+            "user_id" => 2,
+            "comment" => "テストコメント",
+        ]);
+
+        Favorite::create([
+            "user_id" => 2,
+            "item_id" => 1,
+        ]);
     }
 }

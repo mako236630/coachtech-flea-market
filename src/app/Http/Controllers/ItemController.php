@@ -46,9 +46,9 @@ class ItemController extends Controller
             $query = Item::query();
         }
 
-        // ログインしている場合、自分以外のIDの商品だけを取得し、未認証の場合は全件取得します
+        // ログインしている場合、ログインユーザー以外のIDの商品だけを取得し、未登録の場合は全件取得します
         if (Auth::check()) {
-        $query->where('user_id',  '!=', auth()->id());
+        $query->where('items.user_id',  '!=', auth()->id());
         }
 
         if ($request->filled('keyword')) {

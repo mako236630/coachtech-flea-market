@@ -16,8 +16,11 @@
         <div class="profile">
             {{-- 1. 画像を選択した場合にJavaScriptでプレビュー表示させる為に、id="preview"を定義しました
                          2. 画像未選択の場合にsrcに透過データ(Base64)をセットし、CSSの背景色でグレーの円を表示させてます --}}
-            <img class="profile__image" id="preview"
-                src="{{ $user->image ? asset('storage/' . $user->image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' }}">
+            @if ($user->image)
+                <img class="profile__image" id="preview" src="{{ $user->image }}">
+            @else
+                <div class="user-no-img"></div>
+            @endif
 
             <div class="user__name">
                 <strong>{{ $user->name }}</strong>

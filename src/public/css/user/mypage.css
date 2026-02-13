@@ -15,7 +15,15 @@
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    /* 中央で切りぬく　*/
+    background-color: #e0e0e0;
+    display: block;
+}
+
+.user-no-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
     background-color: #e0e0e0;
     display: block;
 }
