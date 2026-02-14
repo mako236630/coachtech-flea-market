@@ -7,6 +7,7 @@
 ```bash
 git clone git@github.com:mako236630/coachtech-flea-market.git
 docker-compose up -d --build
+```
 
 ```markdown
 **laravel 環境構築**
