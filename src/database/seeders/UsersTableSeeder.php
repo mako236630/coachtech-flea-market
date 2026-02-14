@@ -18,14 +18,14 @@ class UsersTableSeeder extends Seeder
     {
         // 商品ダミーデータの出品者用
         $user1 = User::create([
-            "name" => "テスト1",
+            "name" => "商品出品者用テストユーザー",
             "email" => "test@example.com",
             "password" => Hash::make("password123"),
             'email_verified_at' => now(),
         ]);
 
         $user2 = User::create([
-            "name" => "テスト2",
+            "name" => "機能確認用テストユーザー",
             "email" => "test2@example.com",
             "password" => Hash::make("password789"),
             "image" => "https://picsum.photos/200/200",
