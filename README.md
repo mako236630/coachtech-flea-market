@@ -4,7 +4,7 @@
 ## 環境構築
 
 **Dockerビルド**
-
+```bash
 - git clone git@github.com:mako236630/coachtech-flea-market.git
 - docker-compose up -d --build
 
@@ -17,12 +17,13 @@
 - php artisan key:generate
 - php artisan migrate
 - php artisan db:seed
+```
 
 ## 開発環境
 
 - 商品一覧画面: http://localhost/
 - ログイン画面: http://localhost/login  
-アプリの機能や各画面の表示内容を確認する場合、以下の情報でログインしてください。  
+アプリの機能確認には、以下のテストアカウントをご利用ください。  
 メールアドレス: test2@example.com  
 パスワード: password789
 
