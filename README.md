@@ -11,6 +11,7 @@ docker-compose up -d --build
 
 ```markdown
 **laravel 環境構築**
+```
 ```bash
 docker-compose exec php bash
 composer install
