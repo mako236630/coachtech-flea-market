@@ -9,9 +9,7 @@ git clone git@github.com:mako236630/coachtech-flea-market.git
 docker-compose up -d --build
 ```
 
-```markdown
 **laravel 環境構築**
-```
 ```bash
 docker-compose exec php bash
 composer install
