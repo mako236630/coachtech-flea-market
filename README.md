@@ -5,18 +5,19 @@
 
 **Dockerビルド**
 ```bash
-- git clone git@github.com:mako236630/coachtech-flea-market.git
-- docker-compose up -d --build
+git clone git@github.com:mako236630/coachtech-flea-market.git
+docker-compose up -d --build
 
+```markdown
 **laravel 環境構築**
-
-- docker-compose exec php bash
-- composer install
-- cp .env.example .env  
+```bash
+docker-compose exec php bash
+composer install
+cp .env.example .env  
 .envは、docker-compose.ymlの定義に合わせて修正してください。
-- php artisan key:generate
-- php artisan migrate
-- php artisan db:seed
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
 ```
 
 ## 開発環境
