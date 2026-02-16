@@ -16,16 +16,13 @@ class AddressController extends Controller
 
     public function update(AddressRequest $request, $item_id)
     {
-        $user = Auth::user();
-
-        Address::updateOrCreate(
-            ["user_id" => $user->id],
-            [
-                "postcode" => $request->postcode,
-                "address" => $request->address,
-                "building" => $request->building,
+        session([
+            'new_shipping' => [
+                'postcode' => $request->postcode,
+                'address' => $request->address,
+                'building' => $request->building,
             ]
-        );
+        ]);
 
         return redirect()->route("item.purchase",["item_id" => $item_id]);
     }

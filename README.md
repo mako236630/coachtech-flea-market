@@ -36,4 +36,5 @@
 - laravel 8.83.8
 -MySQL 8.0.26
 
-## ER図
+## ER図  
+![ER図](er-diagram.drawio.png)

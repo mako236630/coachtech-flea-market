@@ -55,10 +55,10 @@
 
                     <div class="user__address">
                         <div class="address__postcode">
-                            <strong>〒{{ $address->postcode }}</strong>
+                            <strong>〒{{ $displayAddress->postcode }}</strong>
                         </div>
-                        <strong>{{ $address->address }}</strong>
-                        <strong>　{{ $address->building }}</strong>
+                        <strong>{{ $displayAddress->address }}</strong>
+                        <strong>　{{ $displayAddress->building }}</strong>
                     </div>
                 </div>
                 <hr>

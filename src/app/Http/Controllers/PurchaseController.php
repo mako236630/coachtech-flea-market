@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PurchaseRequest;
 use Illuminate\Http\Request;
 use App\Models\Address;
-use App\Models\paymentMethod;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 
@@ -13,12 +12,16 @@ class PurchaseController extends Controller
 {
     public function index($item_id)
     {
-        $item = Item::findOrFail($item_id);
-        // 配送先の住所は1件だけ取得できれば良いので、first()を使用しました。ビューでも$address->addressのように使いやすくしています。
-        $address = Address::where('user_id', Auth::id())->first();
+        $user = Auth::user();
+        $item = Item::find($item_id);
 
+        $displayAddress = $user->address;
 
-        return view("item.purchase", compact("item", "address"));
+        if (session()->has('new_shipping')) {
+            $displayAddress = (object) session('new_shipping');
+        }
+
+        return view("item.purchase", compact("item", "displayAddress"));
     }
 
     // Stripe決済ページへ繋げます
@@ -32,38 +35,59 @@ class PurchaseController extends Controller
         \Stripe\Stripe::setVerifySslCerts(false);
 
         //コンビニ決済を選択した場合、テスト環境では実際にコンビニで支払うことができない為、今回は購入するボタンを押したら購入完了の動きにしました。
-        if ($paymentMethod === "convenience"){
+        if ($paymentMethod === "convenience") {
+
+            $item = Item::findOrFail($item_id);
+            $user = Auth::user();
+
+            if (session()->has('new_shipping')) {
+                $shipping = session('new_shipping');
+                $postcode = $shipping['postcode'];
+                $address = $shipping['address'];
+                $building = $shipping['building'];
+            } else {
+
+                $postcode = $user->address->postcode;
+                $address = $user->address->address;
+                $building = $user->address->building;
+            }
+
             $item->update([
-                "is_sold" => true,
-                "buyer_id" => Auth::id(),
-                'address_id' => Auth::user()->address->id,
+                'is_sold' => true,
+                'buyer_id' => Auth::id(),
+                'shipping_postcode' => $postcode,
+                'shipping_address' => $address,
+                'shipping_building' => $building,
+                "payment_method" => "convenience",
             ]);
+
+            session()->forget('new_shipping');
 
             return redirect()->route("item.list");
 
-        }else{
+        } else {
 
-        $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency'     => 'jpy',
-                    'product_data' => ['name' => $item->name],
-                    'unit_amount'  => $item->price,
-                ],
-                'quantity' => 1,
-            ]],
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency'     => 'jpy',
+                        'product_data' => ['name' => $item->name],
+                        'unit_amount'  => $item->price,
+                    ],
+                    'quantity' => 1,
+                ]],
 
-            'mode' => 'payment',
-            // 支払い後にsession_idを持たせて、後で支払済みか確認します
-            'success_url' => route('purchase.success', ['item_id' => $item->id]) . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url'  => route('item.show', ['item_id' => $item->id]),
-        ]);
+                'mode' => 'payment',
+                // 支払い後にsession_idを持たせて、後で支払済みか確認します
+                'success_url' => route('purchase.success', ['item_id' => $item->id]) . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url'  => route('item.show', ['item_id' => $item->id]),
+            ]);
 
-        return redirect()->away($session->url);
+            return redirect()->away($session->url);
+        }
     }
-    }
-    
+
 
     public function success(Request $request, $item_id)
     {
@@ -80,12 +104,30 @@ class PurchaseController extends Controller
         }
 
         $item = Item::findOrFail($item_id);
+        $user = Auth::user();
+
+        if (session()->has('new_shipping')) {
+            $shipping = session('new_shipping');
+            $postcode = $shipping['postcode'];
+            $address = $shipping['address'];
+            $building = $shipping['building'];
+        } else {
+
+            $postcode = $user->address->postcode;
+            $address = $user->address->address;
+            $building = $user->address->building;
+        }
+
         $item->update([
             'is_sold' => true,
-            // 購入者を保存します
             'buyer_id' => Auth::id(),
-            'address_id' => Auth::user()->address->id,
-            ]);
+            'shipping_postcode' => $postcode,
+            'shipping_address' => $address,
+            'shipping_building' => $building,
+            "payment_method" => "card",
+        ]);
+
+        session()->forget('new_shipping');
 
         return redirect()->route('item.list');
     }

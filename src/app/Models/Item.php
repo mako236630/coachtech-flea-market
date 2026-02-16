@@ -19,7 +19,10 @@ class Item extends Model
         "user_id",
         "is_sold",
         "buyer_id",
-        "address_id",
+        "shipping_postcode",
+        "shipping_address",
+        "shipping_building",
+        'payment_method',
     ];
 
     public function categories()

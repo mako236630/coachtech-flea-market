@@ -14,7 +14,14 @@ class AddAddressIdToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->foreignId('address_id')->nullable()->constrained()->onDelete('cascade');
+            if (Schema::hasColumn('items', 'address_id')) {
+                $table->dropForeign(['address_id']);
+                $table->dropColumn('address_id');
+            }
+
+            $table->string('shipping_postcode')->nullable();
+            $table->string('shipping_address')->nullable()->after('shipping_postcode');
+            $table->string('shipping_building')->nullable()->after('shipping_address');
         });
     }
 
@@ -26,8 +33,8 @@ class AddAddressIdToItemsTable extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->dropForeign(['address_id']);
-            $table->dropColumn('address_id');
+            $table->dropColumn(['shipping_postal_code', 'shipping_address', 'shipping_building']);
+            $table->foreignId('address_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 }
