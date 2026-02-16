@@ -14,7 +14,8 @@
 - docker-compose exec php bash
 - composer install
 - cp .env.example .env  
-.envは、docker-compose.ymlの定義に合わせて修正してください。
+.envは、docker-compose.ymlの定義に合わせて修正してください。  
+また、Stripe決済設定とMailtrapの設定をしてください。
 - php artisan key:generate
 - php artisan migrate
 - php artisan db:seed
