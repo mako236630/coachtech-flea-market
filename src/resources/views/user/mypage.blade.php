@@ -14,14 +14,13 @@
     <main>
 
         <div class="profile">
-            {{-- 1. 画像を選択した場合にJavaScriptでプレビュー表示させる為に、id="preview"を定義しました
-                         2. 画像未選択の場合にsrcに透過データ(Base64)をセットし、CSSの背景色でグレーの円を表示させてます --}}
-            @if ($user->image)
-                <img class="profile__image" id="preview" src="{{ $user->image }}">
-            @else
-                <div class="user-no-img"></div>
-            @endif
-
+            <div id="image-preview-area">
+                @if ($user->image)
+                    <img class="profile__image" src="{{ asset('storage/' . $user->image) }}">
+                @else
+                    <div class="user-no-img"></div>
+                @endif
+            </div>
             <div class="user__name">
                 <strong>{{ $user->name }}</strong>
             </div>
@@ -65,16 +64,18 @@
     </main>
 
     <script>
-        var fileData = new FileReader();
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                var fileData = new FileReader();
 
-        fileData.onload = function() {
-            // 選択した画像をプレビュー表示してます
-            document.getElementById('preview').src = fileData.result;
-            // 選択した画像のサイズが崩れないように
-            preview.style.width = '100px';
-            preview.style.height = '100px';
-        };
+                fileData.onload = function() {
+                    // 選択した画像をプレビュー表示してます
+                    var area = document.getElementById('image-preview-area');
+                    area.innerHTML = '<img class="profile__image" src="' + fileData.result + '">';
+                };
 
-        fileData.readAsDataURL(input.files[0]);
+                fileData.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 @endsection

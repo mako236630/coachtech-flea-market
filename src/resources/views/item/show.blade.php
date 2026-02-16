@@ -98,8 +98,7 @@
                     @if($comment->user->image)
                     <div class="comment__user-image">
                         {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
-                        <img
-                            id="preview" src="{{ $comment->user->image }}">
+                        <img src="{{ asset('storage/' . $comment->user->image) }}">
                     </div>
                     @else
                     <div class="user-no-img"></div>
@@ -139,16 +138,19 @@
         </div>
     </div>
 
-    <script>
-        if (input.files && input.files[0]) {
-            var fileData = new FileReader();
+     <script>
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                var fileData = new FileReader();
 
-            fileData.onload = function() {
-                // 選択した画像をプレビュー表示してます
-                document.getElementById('preview').src = fileData.result;
-            };
+                fileData.onload = function() {
+                    // 選択した画像をプレビュー表示してます
+                    var area = document.getElementById('comment__user-image');
+                    area.innerHTML = '<img class="profile__image" src="' + fileData.result + '">';
+                };
 
-            fileData.readAsDataURL(input.files[0]);
+                fileData.readAsDataURL(input.files[0]);
+            }
         }
     </script>
 @endsection

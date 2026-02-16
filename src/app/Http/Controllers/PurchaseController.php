@@ -63,7 +63,7 @@ class PurchaseController extends Controller
 
             session()->forget('new_shipping');
 
-            return redirect()->route("item.list");
+            return redirect()->route("item.list")->with('message', '商品を購入しました！');
 
         } else {
 
@@ -129,6 +129,6 @@ class PurchaseController extends Controller
 
         session()->forget('new_shipping');
 
-        return redirect()->route('item.list');
+        return redirect()->route('item.list')->with('message', '商品を購入しました！');
     }
 }

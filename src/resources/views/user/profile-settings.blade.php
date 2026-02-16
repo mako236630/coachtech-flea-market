@@ -22,14 +22,13 @@
                 @endif
 
                 <div class="profile__image-setting">
-                    {{-- 1. 画像を選択した場合にJavaScriptでプレビュー表示させる為に、id="preview"を定義しました
-                         2. 画像未選択の場合にsrcに透過データ(Base64)をセットし、CSSの背景色でグレーの円を表示させてます --}}
-                    @if ($user->image)
-                        <img class="profile__image" id="preview" src="{{ $user->image }}">
-                    @else
-                        <div class="user-no-img"></div>
-                    @endif
-
+                    <div id="image-preview-area">
+                        @if ($user->image)
+                            <img class="profile__image" src="{{ asset('storage/' . $user->image) }}">
+                        @else
+                            <div class="user-no-img"></div>
+                        @endif
+                    </div>
                     <label class="image__setting">
                         画像を選択する
                         <input class="image__input" name="image" accept=".png, .jpeg" type="file"
@@ -95,10 +94,8 @@
 
                 fileData.onload = function() {
                     // 選択した画像をプレビュー表示してます
-                    document.getElementById('preview').src = fileData.result;
-                    // 選択した画像のサイズが崩れないように
-                    preview.style.width = '100px';
-                    preview.style.height = '100px';
+                    var area = document.getElementById('image-preview-area');
+                    area.innerHTML = '<img class="profile__image" src="' + fileData.result + '">';
                 };
 
                 fileData.readAsDataURL(input.files[0]);

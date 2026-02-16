@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+@if (session('message'))
+        <div class="alert__success">
+            {{ session('message') }}
+        </div>
+    @endif
 
     <div class="tab">
         <a class="tab__list" href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => '']))) }}"

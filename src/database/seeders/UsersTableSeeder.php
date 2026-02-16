@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             "name" => "機能確認用テストユーザー",
             "email" => "test2@example.com",
             "password" => Hash::make("password789"),
-            "image" => "https://picsum.photos/200/200",
+            "image" => null,
             'email_verified_at' => now(),
         ]);
 
