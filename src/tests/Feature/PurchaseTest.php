@@ -198,7 +198,6 @@ class PurchaseTest extends TestCase
 
         $response = $this->actingAs($user)->get("/mypage?page=buy");
         $response->assertSee($item->name);
-
     }
 
     // 「小計画面で支払方法が反映・変更される」
@@ -238,7 +237,6 @@ class PurchaseTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('id="payment_method-display"', false);
-
     }
 
     public function test_送付先住所変更画面で登録した住所が商品購入画面に反映されてる()
@@ -271,19 +269,21 @@ class PurchaseTest extends TestCase
         ]);
 
         /** @var \App\Models\User $user */
-        $this->actingAs($user)->post("/purchase/address/{$item->id}", [
+        $response = $this->actingAs($user)->post("/purchase/address/{$item->id}", [
             "postcode" => "789-4561",
             "address" => "宮城県仙台市1-2-3",
+            "building" => "テストビル101",
         ]);
 
-        $this->assertDatabaseHas('addresses', [
-            'user_id' => $user->id,
-            'address' => '宮城県仙台市1-2-3',
+        $response->assertSessionHas('new_shipping', [
+            "postcode" => "789-4561",
+            "address" => "宮城県仙台市1-2-3",
+            "building" => "テストビル101",
         ]);
 
         $response = $this->actingAs($user)->get("/purchase/{$item->id}");
+        $response->assertSee("789-4561");
         $response->assertSee("宮城県仙台市1-2-3");
-        
     }
 
     public function test_購入した商品に送付先住所が紐づいて登録される()
@@ -331,9 +331,9 @@ class PurchaseTest extends TestCase
         $this->assertDatabaseHas('items', [
             'id' => $item->id,
             'buyer_id' => $user->id,
-            'address_id' => $user->address->id,
             'is_sold' => true,
+            'shipping_postcode' => "789-4561",
+            'shipping_address' => "宮城県仙台市1-2-3",
         ]);
-
     }
 }
