@@ -42,6 +42,7 @@ body {
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
+    padding-bottom: 30px;
 }
 
 .title {

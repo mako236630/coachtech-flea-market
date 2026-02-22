@@ -17,10 +17,9 @@
         <form action="{{ route('login') }}" method="post" novalidate>
             @csrf
 
-            <div>
-                <label class="label">メールアドレス</label>
-                <input class="input" type="email" name="email" value="{{ old('email') }}">
-            </div>
+            <label class="label">メールアドレス</label>
+            <input class="input" type="email" name="email" value="{{ old('email') }}">
+
             <div class="error" style="color: red">
                 @error('email')
                     @if ($message !== 'ログイン情報が登録されていません')
@@ -28,10 +27,10 @@
                     @endif
                 @enderror
             </div>
-            <div>
-                <label class="label">パスワード</label>
-                <input class="input" type="password" name="password" value="{{ old('password') }}">
-            </div>
+
+            <label class="label">パスワード</label>
+            <input class="input" type="password" name="password" value="{{ old('password') }}">
+
             <div class="error" style="color: red">
                 @error('password')
                     {{ $message }}

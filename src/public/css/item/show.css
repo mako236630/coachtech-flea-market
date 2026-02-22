@@ -102,14 +102,15 @@
 
 .item__show-category {
     display: flex;
-    gap: 50px;
+    gap: 10px;
     align-items: center;
     padding-bottom: 25px;
+    font-size: 14px;
 }
 
 .category__list {
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
 .category__name {
@@ -313,20 +314,22 @@
 
     .item__show-category {
         display: flex;
-        gap: 50px;
+        gap: 10px;
         align-items: center;
         padding-bottom: 25px;
+        font-size: 10px;
     }
 
     .category__list {
         display: flex;
-        gap: 10px;
+        gap: 5px;
     }
 
     .category__name {
         margin: 0;
-        padding: 5px 20px 5px 20px;
+        padding: 5px 10px 5px 10px;
         background-color: #e0e0e0;
+        font-size: 10px;
         border-radius: 50px;
     }
 
