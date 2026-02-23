@@ -87,6 +87,18 @@
     font-size: 14px;
 }
 
+.page__sell.is-active {
+    color: red;
+    font-weight: bold;
+}
+
+.page__buy.is-active {
+    color: red;
+    font-weight: bold;
+}
+
+
+
 /* タブレット (768-850px) */
 /* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
 @media screen and (max-width: 860px) {

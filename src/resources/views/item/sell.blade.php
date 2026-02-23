@@ -1,14 +1,12 @@
 @extends('layouts.app')
-
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/item/sell.css') }}">
 @endsection
-
 @section('content')
     <form action="{{ route('sell.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
-        <main class="sell__item">
+        <div class="sell__item">
 
             <div class="title">
                 <h1>商品の出品</h1>
@@ -19,7 +17,6 @@
             </div>
 
             <div class="sell__image" id="sell__image">
-
                 <label>
                     <span id="upload-text">画像を選択する</span>
                     {{-- javaScriptで、画像を選択した際に、[画像を選択する]を消して画像だけを表示させます --}}
@@ -61,10 +58,7 @@
                 @enderror
             </div>
 
-
-
             <div class="sell__item-condition">
-
                 <div class="item__condition">
                     <label class="label">商品の状態</label>
                 </div>
@@ -86,7 +80,6 @@
             </div>
 
             <div class="sell__name-description">
-
                 <div class="item__exposition">
                     <h2>商品名と説明</h2>
                 </div>
@@ -110,7 +103,7 @@
 
                 <div class="item__description">
                     <label class="label">商品の説明</label>
-                    <textarea class="textarea" name="description" rows="10" value="{{ old('description') }}"></textarea>
+                    <textarea class="textarea" name="description" rows="10">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="error">
@@ -136,25 +129,21 @@
                 <div class="sell__button">
                     <button class="button" type="submit">出品する</button>
                 </div>
-
             </div>
-
-        </main>
+        </div>
     </form>
 
     <script>
         function previewFile(input) {
-            const file = input.files[0]; // 選択されたファイルを取得
+            const file = input.files[0];
             const text = document.getElementById('upload-text');
-            const container = document.getElementById('preview-container'); // 表示場所を取得
+            const container = document.getElementById('preview-container');
             const sellImageDiv = document.getElementById('sell__image');
 
             if (file) {
-                const reader = new FileReader(); // ファイルを読み込むためのオブジェクト
-
+                const reader = new FileReader();
                 // ファイルの読み込みが完了した時の処理
                 reader.onload = function(e) {
-                    // [画像を選択する]を非表示にする
                     if (text) {
                         text.style.display = 'none';
                     }
@@ -163,15 +152,12 @@
                         sellImageDiv.style.border = 'none';
                     }
 
-
-                    // containerの中身を、imgタグに書き換える
                     container.innerHTML = `
                 <img src="${e.target.result}" 
-                     style="width: 100%; height: 100%; object-fit: contain;">
-            `;
+                     style="width: 100%; height: 100%; object-fit: contain;">`;
                 }
 
-                reader.readAsDataURL(file); // 実際にファイルを読み込む
+                reader.readAsDataURL(file);
             }
         }
     </script>

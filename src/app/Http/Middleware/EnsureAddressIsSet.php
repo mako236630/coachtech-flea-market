@@ -19,7 +19,8 @@ class EnsureAddressIsSet
         $user = $request->user();
         // ①ログインしている②メール認証している③住所登録をしていない場合
         if ($user && $user->hasVerifiedEmail() && empty($user->address)) {
-            // かつ、mypage/profile以外のページに移動しようとした（ヘッダーの出品画面や、ロゴから商品一覧画面）場合、住所を登録するまでプロフィール編集画面から逃がしません
+            // かつ、mypage/profile以外のページに移動しようとした（ヘッダーの出品画面や、ロゴから商品一覧画面）場合
+            // 購入時の住所表示エラーを防ぐため、住所登録を必須化しています
             if (!$request->is('mypage/profile*')) {
                 return redirect('/mypage/profile')->with('error', 'プロフィール設定をしてください');
             }

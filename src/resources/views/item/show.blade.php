@@ -1,10 +1,9 @@
 @extends('layouts.app')
-
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/item/show.css') }}">
 @endsection
-
 @section('content')
+
     <div class="item__show">
 
         <div class="item__image">
@@ -20,7 +19,7 @@
             </div>
 
             <div class="item__show-price">
-                <p>￥<big class="item__price">{{ number_format($item->price) }}</big>（税込み）</p>
+                <p>￥<span class="item__price">{{ number_format($item->price) }}</span>（税込み）</p>
             </div>
 
             <div class="item__favorite-comment">
@@ -97,7 +96,6 @@
                 <div class="comment__user">
                     @if($comment->user->image)
                     <div class="comment__user-image">
-                        {{-- コメントしたユーザーの画像を表示する為、id="preview"を定義しJavaScriptでプレビュー表示させます　--}}
                         <img src="{{ asset('storage/' . $comment->user->image) }}">
                     </div>
                     @else
@@ -137,20 +135,4 @@
             </form>
         </div>
     </div>
-
-     <script>
-        function previewFile(input) {
-            if (input.files && input.files[0]) {
-                var fileData = new FileReader();
-
-                fileData.onload = function() {
-                    // 選択した画像をプレビュー表示してます
-                    var area = document.getElementById('comment__user-image');
-                    area.innerHTML = '<img class="profile__image" src="' + fileData.result + '">';
-                };
-
-                fileData.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 @endsection

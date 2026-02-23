@@ -1,11 +1,8 @@
 @extends('layouts.app')
-
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/user/profile-setting.css') }}">
 @endsection
-
 @section('content')
-    <main>
 
         <div class="profile__setting">
             <div class="title">
@@ -40,9 +37,7 @@
                             {{ $message }}
                         @enderror
                     </div>
-
                 </div>
-
 
                 <label class="label">ユーザー名</label>
                 <input class="input" type="text" name="name" value="{{ old('name', $user->name) }}">
@@ -81,11 +76,8 @@
                 <div class="button__container">
                     <button class="button" type="submit">更新する</button>
                 </div>
-
             </form>
         </div>
-
-    </main>
 
     <script>
         function previewFile(input) {

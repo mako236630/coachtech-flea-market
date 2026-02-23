@@ -1,4 +1,4 @@
-.main {
+.purchase-wrapper {
     display: flex;
     justify-content: space-between;
     max-width: 1300px;
@@ -120,7 +120,7 @@ td {
 /* max-width を850に設定しても850pxでタブレットに切り替わらないので、余裕をもって860pxに設定してます */
 @media screen and (max-width: 860px) {
 
-    .main {
+    .purchase-wrapper {
         display: flex;
         justify-content: space-between;
         max-width: 850px;

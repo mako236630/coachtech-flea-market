@@ -20,6 +20,9 @@ class ItemController extends Controller
     // 商品一覧画面で、おすすめ・マイリストのタブの切り替えとキーワード検索に対応しています
     public function index(Request $request)
     {
+        $list = url('/?' . http_build_query(array_merge($request->query(), ['tab' =>''])));
+        $mylist = url('/?' . http_build_query(array_merge($request->query(), ['tab' => 'mylist'])));
+
         $tab = $request->query("tab");
 
         if ($tab === "mylist") {
@@ -37,8 +40,6 @@ class ItemController extends Controller
                 return redirect()->route("verification.notice");
             }
 
-            /** @var \App\Models\User $user */
-            $user = Auth::user();
             $query = $user->favorite_items();
 
         } else {
@@ -60,7 +61,7 @@ class ItemController extends Controller
 
         $items = $query->get();
 
-        return view('item.list', compact('items', "tab", "items"));
+        return view('item.list', compact("tab", "items" ,"list", "mylist"));
     }
 
     /**
@@ -117,7 +118,6 @@ class ItemController extends Controller
      */
     public function show($item_id)
     {
-        // 商品についているコメントとコメントを書いたユーザーの情報を持ってくる
         $item = Item::with("comments.user")->findOrFail($item_id);
 
         return view("item.show", compact('item'));

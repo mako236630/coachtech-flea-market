@@ -28,6 +28,16 @@
     font-weight: bold;
 }
 
+.tab__list.is-active {
+    color: red;
+    font-weight: bold;
+}
+
+.tab__mylist.is-active {
+    color: red;
+    font-weight: bold;
+}
+
 .item__img {
     width: 300px;
     aspect-ratio: 1 / 1;

@@ -11,11 +11,11 @@
     @endif
 
     <div class="tab">
-        <a class="tab__list" href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => '']))) }}"
-            style="{{ $tab !== 'mylist' ? 'color: red; font-weight: bold;' : '' }}">おすすめ</a>
+        <a href="{{ $list }}"
+            class="tab__list {{ $tab !== 'mylist' ? 'is-active' : '' }}">おすすめ</a>
 
-        <a class="tab__mylist" href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['tab' => 'mylist']))) }}"
-            style="{{ $tab === 'mylist' ? 'color: red; font-weight: bold;' : '' }}">マイリスト</a>
+        <a href="{{ $mylist }}"
+            class="tab__mylist {{ $tab === 'mylist' ? 'is-active' : '' }}">マイリスト</a>
     </div>
     <hr>
     @if ($items->isEmpty())
@@ -30,13 +30,13 @@
                 <div class="item__list">
                     <a href="/item/{{ $item->id }}"> <img class="item__img" src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"></a>
 
-                    <P>
+                    <p>
                         @if ($item->is_sold)
                             {{ $item->name }} <strong class="item__sold">sold</strong>
                         @else
                             {{ $item->name }}
                         @endif
-                    </P>
+                    </p>
                 </div>
             @endforeach
         </div>

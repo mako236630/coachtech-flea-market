@@ -29,7 +29,6 @@ class ProfileController extends Controller
         return view("user.mypage", compact("user", "items", "page"));
     }
 
-    // プロフィール更新画面
     public function edit()
     {
         $user = Auth::user();
@@ -43,7 +42,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // ユーザーがプロフィールの初期設定と更新ができるように定義しました
         Address::updateOrCreate(
             ["user_id" => $user->id],
             [
@@ -54,7 +52,6 @@ class ProfileController extends Controller
         );
 
         // $userをモデルだと認識しないので、@varを使用してuserモデルだと認識させ、メゾットエラーを解消させました
-
         /** @var \App\Models\User $user */ 
         $user->update(
             ["name" => $request->name]);
